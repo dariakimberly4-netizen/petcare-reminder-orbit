@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const logo='Pet-Family-Animal-Clinic-and-Grooming-Center.png';document.querySelectorAll('[data-clinic-logo]').forEach(img=>{img.src=logo;});});

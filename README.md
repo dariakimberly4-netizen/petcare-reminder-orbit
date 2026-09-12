@@ -7,7 +7,7 @@ Mobile-first pet health, vaccination, grooming, medication, veterinary reminder 
 ## Modes
 
 - **Demo mode** — keeps the original browser-only sample data and the ENTER PET OWNER DEMO / ENTER CLINIC DEMO buttons.
-- **Secure account mode** — uses Supabase Auth, Postgres, Storage, Row Level Security, Realtime, and Edge Functions.
+- **Secure account mode** — uses Supabase Auth, Postgres, Storage, Row Level Security, Realtime, scheduled reminders, and Edge Functions.
 
 The circular Pet Owner Orbit and circular Clinic Staff Orbit remain the primary navigation experience.
 
@@ -21,22 +21,26 @@ The secure backend includes:
 - persistent sessions and password reset
 - pet-owner and clinic-staff access roles
 - Row Level Security
-- pet records
-- vaccinations and certificates
-- reminders
-- medications
-- grooming records
-- appointments
+- full pet profiles and private pet photos
+- vaccinations, next-due dates, lot numbers, notes, and private certificates
+- configurable reminders at 30 / 14 / 7 / 3 / 1 days and same day
+- automatic daily reminder processing and in-app notifications
+- medication records plus Taken / Skipped / Rescheduled events
+- grooming records and status workflow
+- appointment booking, rescheduling, cancellation, and calendar export
 - vet visits
-- private document storage
-- health timeline
-- family sharing
+- private document upload, preview, download, and delete
+- automatic health timeline
+- family sharing per pet
 - clinic staff roles
 - audit logs
 - contact history
-- private pet photos
-- read-only tokenized public vaccine card endpoint
-- realtime subscriptions
+- advanced clinic pet lookup
+- clinic reminder center and secure reports
+- private Storage buckets
+- read-only tokenized public vaccine-card page
+- live Realtime updates across signed-in devices
+- explicit, non-destructive import of old local demo records
 
 ## Staff roles
 
@@ -54,6 +58,10 @@ Groomer access is intentionally restricted from unnecessary medical information.
 - `pet-photos`
 
 All are private. Authorized users receive short-lived signed URLs for private documents.
+
+## Reminder engine
+
+A scheduled Supabase database job runs daily and updates reminder status. It creates in-app notifications only for the reminder intervals enabled on each reminder. Vaccination records with a next-due date automatically create or update a vaccination reminder. No vaccination schedule is calculated by the app; the entered next-due date remains the source of truth.
 
 ## Frontend Supabase configuration
 

@@ -1,0 +1,135 @@
+/* Orbit-first navigation: Orbit is home, modules open as temporary workspaces. */
+.owner-main > .panel-area,
+.clinic-main > .panel-area{
+  display:none;
+}
+
+.app-shell.workspace-open .orbit-section{
+  display:none !important;
+}
+
+.app-shell.workspace-open .panel-area{
+  display:block !important;
+  width:min(100%,1120px);
+  min-height:calc(100dvh - 92px);
+  margin:0 auto;
+  padding:18px 16px 34px;
+  box-sizing:border-box;
+  animation:workspaceIn .18s ease-out;
+}
+
+.app-shell.workspace-open .owner-main,
+.app-shell.workspace-open .clinic-main{
+  display:block !important;
+  width:100%;
+  max-width:none;
+  min-height:calc(100dvh - 70px);
+  padding:0;
+}
+
+#ownerApp.workspace-open .bottom-nav{
+  display:none !important;
+}
+
+.workspace-toolbar{
+  position:sticky;
+  top:68px;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:0 0 14px;
+  padding:10px;
+  border:1px solid rgba(18,58,145,.12);
+  border-radius:18px;
+  background:rgba(255,255,255,.97);
+  box-shadow:0 10px 28px rgba(18,58,145,.10);
+  backdrop-filter:blur(10px);
+}
+
+.workspace-back,
+.workspace-close{
+  min-height:48px;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.workspace-back{
+  flex:1;
+  max-width:220px;
+  border:1px solid #cfd8e6;
+  background:#fff;
+  color:#17345e;
+  padding:0 16px;
+  text-align:left;
+}
+
+.workspace-close{
+  min-width:118px;
+  border:0;
+  background:#123a91;
+  color:#fff;
+  padding:0 18px;
+}
+
+.app-shell.workspace-open .panel-card{
+  width:100%;
+  max-width:none;
+  margin:0;
+  border-radius:24px;
+  box-shadow:0 16px 44px rgba(15,35,70,.10);
+}
+
+.app-shell.workspace-open .panel-header h2{
+  font-size:clamp(1.45rem,4vw,2rem);
+}
+
+.app-shell.workspace-open .btn,
+.app-shell.workspace-open button,
+.app-shell.workspace-open input,
+.app-shell.workspace-open select{
+  min-height:46px;
+}
+
+@keyframes workspaceIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media (max-width:700px){
+  .app-shell.workspace-open .panel-area{
+    width:100%;
+    min-height:calc(100dvh - 64px);
+    padding:10px 10px 26px;
+  }
+  .workspace-toolbar{
+    top:60px;
+    margin-bottom:10px;
+    border-radius:16px;
+  }
+  .workspace-back,
+  .workspace-close{
+    min-height:52px;
+    font-size:.92rem;
+  }
+  .workspace-back{
+    max-width:none;
+  }
+  .workspace-close{
+    min-width:104px;
+  }
+  .app-shell.workspace-open .panel-card{
+    border-radius:20px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .app-shell.workspace-open .panel-area{animation:none}
+}
+
+body.reduced-motion .app-shell.workspace-open .panel-area,
+.reduced-motion .app-shell.workspace-open .panel-area{
+  animation:none;
+}

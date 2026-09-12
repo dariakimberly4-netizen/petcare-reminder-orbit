@@ -28,20 +28,39 @@
     requestAnimationFrame(()=>{
       if(restoreScroll) window.scrollTo({top:navState[mode].scrollY||0,behavior:'auto'});
       try{orbit(mode)?.focus({preventScroll:true})}catch{}
+      try{window.PetCareSmartHub?.updateCenters?.()}catch{}
     });
+  }
+
+  function beginWorkspace(mode,module){
+    if(!navState[mode].open)navState[mode].scrollY=window.scrollY;
+    navState[mode].open=true;
+    navState[mode].module=module;
+    const s=shell(mode);if(!s)return null;
+    s.classList.add('workspace-open');
+    return s;
   }
 
   function openWorkspace(mode,module){
     const render=mode==='owner'?(window.petcareRenderOwner||window.renderOwner):(window.petcareRenderClinic||window.renderClinic);
     if(typeof render!=='function')return;
-    navState[mode].scrollY=window.scrollY;
-    navState[mode].open=true;
-    navState[mode].module=module;
+    const s=beginWorkspace(mode,module);if(!s)return;
     render(module);
-    const s=shell(mode);if(!s)return;
-    s.classList.add('workspace-open');
     decorate(mode);
     requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));
+  }
+
+  function showCustom(mode,html,module='custom'){
+    const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
+    p.innerHTML=html;
+    decorate(mode);
+    requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));
+  }
+
+  function refreshCustom(mode,html){
+    const p=panel(mode);if(!p||!navState[mode].open)return;
+    p.innerHTML=html;
+    decorate(mode);
   }
 
   function installEnterWrapper(){
@@ -51,6 +70,7 @@
       const out=original(mode);
       closeWorkspace(mode,{restoreScroll:false});
       try{window.renderOrbit?.(mode)}catch{}
+      try{window.PetCareSmartHub?.updateCenters?.()}catch{}
       return out;
     };
     wrapped=true;
@@ -88,14 +108,20 @@
     }
 
     const action=e.target.closest('[data-action]');
-    if(action?.dataset.action==='home-summary'||action?.dataset.action==='center-status'){
+    if(action?.dataset.action==='home-summary'){
       e.preventDefault();e.stopImmediatePropagation();
       openWorkspace('owner','home');
       return;
     }
+    if(action?.dataset.action==='center-status'){
+      e.preventDefault();e.stopImmediatePropagation();
+      if(window.PetCareSmartHub?.open)window.PetCareSmartHub.open('owner');else openWorkspace('owner','home');
+      return;
+    }
     if(action?.dataset.action==='clinic-dashboard'){
       e.preventDefault();e.stopImmediatePropagation();
-      openWorkspace('clinic','dashboard');
+      if(action.classList.contains('clinic-center')&&window.PetCareSmartHub?.open)window.PetCareSmartHub.open('clinic');
+      else openWorkspace('clinic','dashboard');
     }
   },true);
 
@@ -113,7 +139,10 @@
 
   window.PetCareWorkspace={
     open:openWorkspace,
+    showCustom,
+    refreshCustom,
     close:closeWorkspace,
-    isOpen:mode=>!!navState[mode]?.open
+    isOpen:mode=>!!navState[mode]?.open,
+    current:mode=>navState[mode]?.module||null
   };
 })();

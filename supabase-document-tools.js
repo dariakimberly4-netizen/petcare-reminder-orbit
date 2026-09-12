@@ -1,0 +1,10 @@
+(()=>{
+'use strict';
+const api=window.PetCareSupabase;if(!api)return;
+const getData=()=>window.petcareGetData?.(),getPet=()=>window.petcareGetSelected?.();
+const toast=msg=>{const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1900)};
+async function preview(d){const {data,error}=await api.state.client.storage.from(d.storageBucket||'pet-documents').createSignedUrl(d.storagePath,300);if(error)return toast(error.message);window.open(data.signedUrl,'_blank','noopener')}
+async function download(d){const {data,error}=await api.state.client.storage.from(d.storageBucket||'pet-documents').download(d.storagePath);if(error)return toast(error.message);const u=URL.createObjectURL(data),a=document.createElement('a');a.href=u;a.download=d.name||'pet-document';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function enhance(){if(!api.active)return;const panel=document.getElementById('ownerPanel');if(!panel||panel.querySelector('h2')?.textContent?.trim()!=='Document Vault')return;const p=getPet(),docs=(getData()?.documents||[]).filter(d=>d.petId===p?.id),rows=[...panel.querySelectorAll('.list-item')];rows.forEach((row,i)=>{const d=docs[i];if(!d?.storagePath||row.querySelector('[data-document-actions]'))return;const actions=document.createElement('div');actions.className='actions';actions.dataset.documentActions='1';actions.innerHTML='<button class="btn btn-outline">PREVIEW</button><button class="btn btn-outline">DOWNLOAD</button>';actions.children[0].onclick=()=>preview(d);actions.children[1].onclick=()=>download(d);row.appendChild(actions)})}
+const obs=new MutationObserver(enhance);window.addEventListener('DOMContentLoaded',()=>{const p=document.getElementById('ownerPanel');if(p)obs.observe(p,{childList:true,subtree:true});enhance()});
+})();

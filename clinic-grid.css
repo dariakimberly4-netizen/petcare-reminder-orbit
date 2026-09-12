@@ -1,0 +1,55 @@
+/* Clinic staff navigation: card grid, not circular/orbit. Owner experience remains Orbit. */
+.clinic-orbit-section{background:linear-gradient(180deg,#ffffff,#f3f8fc)}
+.clinic-orbit-section .orbit-wrap{
+  position:relative;
+  width:100%;
+  max-width:none;
+  aspect-ratio:auto;
+  margin:16px auto 6px;
+  touch-action:auto;
+}
+.clinic-orbit-section .orbit-ring,
+.clinic-orbit-section .clinic-center{display:none!important}
+.clinic-orbit-section .orbit-nodes{
+  position:static!important;
+  inset:auto!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  transform:none!important;
+  transition:none!important;
+}
+.clinic-orbit-section .orbit-node{
+  position:static!important;
+  left:auto!important;
+  top:auto!important;
+  transform:none!important;
+  width:100%!important;
+  min-height:94px;
+  border-radius:18px;
+  padding:14px 10px;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(18,58,145,.10);
+  border:1px solid #dfe7ef;
+  font-size:.76rem;
+  line-height:1.15;
+}
+.clinic-orbit-section .orbit-node:active,
+.clinic-orbit-section .orbit-node:focus{
+  background:#edf5ff;
+  outline:3px solid rgba(18,58,145,.15);
+}
+.clinic-orbit-section .orbit-node .node-icon{font-size:1.65rem}
+.clinic-orbit-section .orbit-help{font-size:0;padding-top:12px}
+.clinic-orbit-section .orbit-help::after{
+  content:'Tap a clinic module to open its workspace';
+  font-size:.8rem;
+  color:#667085;
+}
+@media (min-width:700px){
+  .clinic-orbit-section .orbit-nodes{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:420px){
+  .clinic-orbit-section .orbit-nodes{gap:10px}
+  .clinic-orbit-section .orbit-node{min-height:88px;font-size:.7rem;padding:12px 8px}
+}

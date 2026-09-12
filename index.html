@@ -7,17 +7,16 @@
   <title>PetCare Reminder — Orbit Version</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
-  <script src="logo.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <div id="app">
     <section id="welcome" class="screen welcome-screen active" aria-label="Welcome">
       <div class="welcome-card">
-        <img src="" data-clinic-logo alt="Pet Family Animal Clinic and Grooming Center logo" class="brand-logo hero-logo" />
+        <img src="assets/pet-family-logo.png" alt="Pet Family Animal Clinic and Grooming Center logo" class="brand-logo hero-logo" />
         <p class="eyebrow">PETCARE REMINDER</p>
         <h1>Never Miss Their Care.</h1>
-        <p class="lead">A simple pet-care and clinic reminder system with an interactive Orbit.</p>
+        <p class="lead">Pet health, reminders, grooming, vaccinations and clinic care — organized around a simple Orbit.</p>
         <div class="welcome-actions">
           <button class="btn btn-primary btn-xl" data-enter="owner">ENTER PET OWNER DEMO</button>
           <button class="btn btn-secondary btn-xl" data-enter="clinic">ENTER CLINIC DEMO</button>
@@ -28,92 +27,37 @@
 
     <section id="ownerApp" class="screen app-shell" aria-label="Pet owner app">
       <header class="topbar">
-        <div class="brand-mini">
-          <img src="" data-clinic-logo alt="Clinic logo" class="mini-logo" />
-          <div><strong>PetCare Reminder</strong><small>Never Miss Their Care.</small></div>
-        </div>
-        <div class="top-actions">
-          <button class="icon-btn" data-action="search" aria-label="Search">⌕</button>
-          <button class="icon-btn" data-action="notifications" aria-label="Notifications">🔔</button>
-          <button class="icon-btn" data-action="settings" aria-label="Settings">⚙</button>
-        </div>
+        <div class="brand-mini"><img src="assets/pet-family-logo.png" alt="Clinic logo" class="mini-logo" /><div><strong>PetCare Reminder</strong><small>Never Miss Their Care.</small></div></div>
+        <div class="top-actions"><button class="icon-btn" data-action="search" aria-label="Search">⌕</button><button class="icon-btn" data-action="notifications" aria-label="Notifications">🔔</button><button class="icon-btn" data-action="settings" aria-label="Settings">⚙</button></div>
       </header>
-
       <main class="owner-main">
         <section class="orbit-section">
-          <div class="orbit-toolbar">
-            <button class="pet-selector" data-action="switch-pet"><span id="selectedPetName">Peanut</span> ▾</button>
-            <button class="text-btn" data-action="home-summary">TODAY</button>
-          </div>
-
+          <div class="orbit-toolbar"><button class="pet-selector" data-action="switch-pet"><span id="selectedPetName">Peanut</span> ▾</button><button class="text-btn" data-action="home-summary">TODAY</button></div>
           <div id="ownerOrbit" class="orbit-wrap" tabindex="0" aria-label="Pet owner orbit navigation">
-            <div class="orbit-ring ring-a"></div>
-            <div class="orbit-ring ring-b"></div>
-            <button class="center-orb" data-action="center-status">
-              <div class="pet-avatar" id="petAvatar">🐶</div>
-              <small id="centerKicker">NEXT CARE DUE</small>
-              <strong id="centerTitle">Rabies Vaccine</strong>
-              <span id="centerMeta">Peanut · Due Sep 28</span>
-              <em>VIEW DETAILS</em>
-            </button>
+            <div class="orbit-ring ring-a"></div><div class="orbit-ring ring-b"></div>
+            <button class="center-orb" data-action="center-status"><div class="pet-avatar" id="petAvatar">🐶</div><small id="centerKicker">NEXT CARE DUE</small><strong id="centerTitle">Rabies Vaccine</strong><span id="centerMeta">Peanut · Due Sep 28</span><em>VIEW DETAILS</em></button>
             <div id="ownerNodes" class="orbit-nodes"></div>
           </div>
-
           <div class="orbit-help">Swipe or drag to rotate · Tap a node to open</div>
         </section>
-
         <section id="ownerPanel" class="panel-area" aria-live="polite"></section>
       </main>
-
-      <nav class="bottom-nav" aria-label="Quick navigation">
-        <button data-module="home">HOME</button>
-        <button data-module="pets">MY PETS</button>
-        <button data-module="reminders">REMINDERS</button>
-        <button data-module="vaccine">VACCINE CARD</button>
-        <button data-module="more">MORE</button>
-      </nav>
+      <nav class="bottom-nav" aria-label="Quick navigation"><button data-module="home">HOME</button><button data-module="pets">MY PETS</button><button data-module="reminders">REMINDERS</button><button data-module="vaccine">VACCINE CARD</button><button data-module="more">MORE</button></nav>
     </section>
 
     <section id="clinicApp" class="screen app-shell clinic-shell" aria-label="Clinic staff app">
-      <header class="topbar clinic-topbar">
-        <div class="brand-mini">
-          <img src="" data-clinic-logo alt="Clinic logo" class="mini-logo" />
-          <div><strong>Pet Family Animal Clinic</strong><small>Clinic Staff Portal · DEMO</small></div>
-        </div>
-        <div class="top-actions">
-          <button class="icon-btn" data-action="clinic-search" aria-label="Clinic search">⌕</button>
-          <button class="icon-btn" data-action="return-owner" aria-label="Pet owner mode">🐾</button>
-        </div>
-      </header>
-
+      <header class="topbar clinic-topbar"><div class="brand-mini"><img src="assets/pet-family-logo.png" alt="Clinic logo" class="mini-logo" /><div><strong>Pet Family Animal Clinic</strong><small>Clinic Staff Portal · DEMO</small></div></div><div class="top-actions"><button class="icon-btn" data-action="clinic-search" aria-label="Clinic search">⌕</button><button class="icon-btn" data-action="return-owner" aria-label="Pet owner mode">🐾</button></div></header>
       <main class="clinic-main">
         <section class="orbit-section clinic-orbit-section">
           <div class="orbit-toolbar"><span class="demo-pill inline">CLINIC DEMO</span><button class="text-btn" data-action="clinic-dashboard">DASHBOARD</button></div>
-          <div id="clinicOrbit" class="orbit-wrap" tabindex="0" aria-label="Clinic staff orbit navigation">
-            <div class="orbit-ring ring-a"></div>
-            <div class="orbit-ring ring-b"></div>
-            <button class="center-orb clinic-center" data-action="clinic-dashboard">
-              <img src="" data-clinic-logo alt="Pet Family clinic logo" />
-              <small>TODAY'S CLINIC</small>
-              <strong id="clinicCenterTitle">5 Appointments</strong>
-              <span>2 vaccines due · 1 grooming pickup</span>
-              <em>OPEN DASHBOARD</em>
-            </button>
-            <div id="clinicNodes" class="orbit-nodes"></div>
-          </div>
+          <div id="clinicOrbit" class="orbit-wrap" tabindex="0" aria-label="Clinic staff orbit navigation"><div class="orbit-ring ring-a"></div><div class="orbit-ring ring-b"></div><button class="center-orb clinic-center" data-action="clinic-dashboard"><img src="assets/pet-family-logo.png" alt="Pet Family clinic logo" /><small>TODAY'S CLINIC</small><strong id="clinicCenterTitle">5 Appointments</strong><span>2 vaccines due · 1 grooming pickup</span><em>OPEN DASHBOARD</em></button><div id="clinicNodes" class="orbit-nodes"></div></div>
           <div class="orbit-help">Drag, swipe, tap · Modules open in a clean workspace</div>
         </section>
         <section id="clinicPanel" class="panel-area" aria-live="polite"></section>
       </main>
     </section>
 
-    <div id="modal" class="modal-backdrop" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <button class="modal-close" data-close-modal aria-label="Close">×</button>
-        <div id="modalBody"></div>
-      </div>
-    </div>
-
+    <div id="modal" class="modal-backdrop" aria-hidden="true"><div class="modal" role="dialog" aria-modal="true"><button class="modal-close" data-close-modal aria-label="Close">×</button><div id="modalBody"></div></div></div>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
   </div>
 </body>

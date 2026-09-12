@@ -1,0 +1,7 @@
+(()=>{
+'use strict';
+const esc=s=>String(s??'—').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const fmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}):'—';
+async function run(){const box=document.getElementById('cardContent'),cfg=window.PETCARE_ENV||{},token=new URLSearchParams(location.search).get('token');if(!token||!cfg.SUPABASE_URL){box.textContent='This vaccine card link is invalid.';return}try{const r=await fetch(cfg.SUPABASE_URL+'/functions/v1/public-vaccine-card?token='+encodeURIComponent(token),{cache:'no-store'});const j=await r.json();if(!r.ok)throw new Error(j.error||'Unable to load card');const p=j.pet||{},v=j.vaccinations||[];box.className='';box.innerHTML=`<section class="pet"><h1>${esc(p.name)}</h1><p>${esc(p.species)} · ${esc(p.breed)}</p><p>Microchip: ${esc(p.microchip)}</p><p>Clinic: ${esc(p.clinic)}</p></section><div class="table-wrap"><table><thead><tr><th>Vaccine</th><th>Date Given</th><th>Next Due</th></tr></thead><tbody>${v.length?v.map(x=>`<tr><td>${esc(x.vaccine)}</td><td>${fmt(x.date_given)}</td><td>${fmt(x.next_due_date)}</td></tr>`).join(''):'<tr><td colspan="3">No vaccination records available.</td></tr>'}</tbody></table></div>`}catch(e){box.className='status';box.textContent=e.message||'Unable to load vaccine card.'}}
+window.addEventListener('DOMContentLoaded',run);
+})();

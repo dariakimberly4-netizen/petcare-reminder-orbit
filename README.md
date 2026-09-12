@@ -29,6 +29,7 @@ The secure backend includes:
 - grooming records and status workflow
 - appointment booking, rescheduling, cancellation, and calendar export
 - vet visits
+- Version 22 billing with invoices, consultation/vaccine/grooming/medication/procedure line items, discounts, partial/full payments, Cash/GCash/Card/Bank Transfer records, printable receipts, unpaid balances, and daily revenue export
 - private document upload, preview, download, and delete
 - automatic health timeline
 - family sharing per pet
@@ -42,6 +43,14 @@ The secure backend includes:
 - live Realtime updates across signed-in devices
 - explicit, non-destructive import of old local demo records
 
+## Version 22 Billing
+
+Billing remains a temporary workspace; the Orbit stays home. In Clinic mode, use the **BILLING** action in the Clinic Orbit toolbar or **OPEN BILLING** in the Smart Hub. Completed/ready queue cards can also create a draft invoice for a registered pet.
+
+Clinic Admin and Receptionist can create/finalize invoices and record payments. Owners have read-only access to finalized invoices and receipts. Finalized invoice line items and discounts are locked. Posted payments must be voided before an invoice can be voided.
+
+The app records payment methods but **does not directly process external GCash, card, or bank payments**. Printing uses the browser print dialog, which can also save the invoice as PDF.
+
 ## Staff roles
 
 - CLINIC ADMIN
@@ -49,7 +58,7 @@ The secure backend includes:
 - RECEPTIONIST
 - GROOMER
 
-Groomer access is intentionally restricted from unnecessary medical information.
+Groomer access is intentionally restricted from unnecessary medical and billing information.
 
 ## Storage buckets
 

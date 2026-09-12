@@ -2,6 +2,11 @@
   'use strict';
   function callEnter(mode){
     try{
+      if(window.PetCareSupabase?.active){
+        const base=location.origin+location.pathname;
+        location.assign(base+'?mode=demo&enter='+encodeURIComponent(mode));
+        return;
+      }
       if(typeof window.enter==='function') return window.enter(mode);
       const target=document.getElementById(mode==='owner'?'ownerApp':'clinicApp');
       document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));

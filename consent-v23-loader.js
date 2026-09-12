@@ -1,0 +1,1 @@
+(()=>{try{const b=atob(window.__CONSENT23_B64||'');const bytes=Uint8Array.from(b,c=>c.charCodeAt(0));const src=new TextDecoder().decode(bytes);new Function(src)();}catch(e){console.error('PetCare Consent V23 failed to load',e)}finally{delete window.__CONSENT23_B64}})();

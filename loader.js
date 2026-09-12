@@ -8,7 +8,7 @@
     fixed=fixed.replace("save=()=>localStorage.setItem(KEY,JSON.stringify(data))","save=()=>{localStorage.setItem(KEY,JSON.stringify(data));if(window.PetCareSupabase?.active)window.PetCareSupabase.syncLegacy(data)}");
     ["'p'+Date.now()","'v'+Date.now()","'m'+Date.now()","'g'+Date.now()","'a'+Date.now()","'d'+Date.now()"].forEach(x=>{fixed=fixed.split(x).join("(window.PetCareSupabase?.newId?.()||crypto.randomUUID())")});
     fixed=fixed.replace("text:location.href+'#pet='+p.id","text:(window.PetCareSupabase?.cardUrl?.(p)||location.href+'#pet='+p.id)");
-    const wrapped=fixed+"\n;try{window.enter=enter;window.renderOrbit=renderOrbit;window.renderOwner=renderOwner;window.renderClinic=renderClinic;window.center=center;window.petcareGetData=()=>data;window.petcareGetSelected=()=>pet();window.petcareRenderOwner=renderOwner;window.petcareRenderClinic=renderClinic;}catch(e){}";
+    const wrapped=fixed+"\n;try{window.enter=enter;window.renderOrbit=renderOrbit;window.renderOwner=renderOwner;window.renderClinic=renderClinic;window.center=center;window.petcareGetData=()=>data;window.petcareGetSelected=()=>pet();window.petcareRenderOwner=renderOwner;window.petcareRenderClinic=renderClinic;window.petcareSelectPet=id=>{selected=id;center();renderOrbit('owner');renderOwner('home')};}catch(e){}";
     new Function(wrapped)();
     document.dispatchEvent(new Event('DOMContentLoaded'));
     setTimeout(()=>{
@@ -29,11 +29,11 @@
   };
   const fallback=()=>{
     const s=document.createElement('script');
-    s.src='main.js?v=10';
+    s.src='main.js?v=11';
     s.onload=()=>document.dispatchEvent(new Event('DOMContentLoaded'));
     document.head.appendChild(s);
   };
-  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=10',{cache:'no-store'}))
+  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=11',{cache:'no-store'}))
     .then(r=>{if(!r.ok)throw new Error('app.js '+r.status);return r.text()})
     .then(exposeAndRun)
     .catch(err=>{console.error('PetCare full app load failed',err);fallback()});

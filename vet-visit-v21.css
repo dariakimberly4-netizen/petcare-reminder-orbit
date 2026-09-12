@@ -1,0 +1,59 @@
+.vet-visit-workspace{max-width:1180px;margin:0 auto;padding-bottom:96px}
+.vet-visit-workspace .smart-hero{margin-bottom:18px}
+.vet-header-grid,.vet-vitals-grid,.vet-owner-safe-grid,.vet-follow-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.vet-header-item,.vet-mini-card{background:#fff;border:1px solid rgba(12,45,98,.14);border-radius:16px;padding:13px;min-width:0}
+.vet-header-item small,.vet-mini-card small{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;color:#64748b;text-transform:uppercase;margin-bottom:5px}
+.vet-header-item strong,.vet-mini-card strong{display:block;font-size:15px;color:#10233f;word-break:break-word}
+.vet-section{background:#fff;border:1px solid rgba(12,45,98,.13);border-radius:20px;padding:18px;margin:14px 0;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+.vet-section>h3{margin:0 0 14px;color:#10233f;font-size:18px}
+.vet-section-note{font-size:13px;color:#64748b;margin:-6px 0 14px;line-height:1.45}
+.vet-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.vet-form-grid .full{grid-column:1/-1}
+.vet-form-grid label,.vet-exam-row label,.vet-follow-grid label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800;color:#334155;text-transform:uppercase;letter-spacing:.04em}
+.vet-form-grid input,.vet-form-grid textarea,.vet-form-grid select,.vet-exam-row input,.vet-exam-row select,.vet-follow-grid input,.vet-follow-grid textarea,.vet-follow-grid select{width:100%;min-height:48px;border:1px solid #cbd5e1;border-radius:12px;padding:11px 12px;background:#fff;color:#0f172a;font:inherit;text-transform:none;letter-spacing:0;box-sizing:border-box}
+.vet-form-grid textarea,.vet-follow-grid textarea{min-height:88px;resize:vertical}
+.vet-exam-list{display:grid;gap:10px}
+.vet-exam-row{display:grid;grid-template-columns:minmax(140px,.7fr) minmax(150px,.7fr) minmax(220px,1.8fr);gap:10px;align-items:end;padding:10px;border-radius:14px;background:#f8fafc}
+.vet-exam-label{font-weight:800;color:#1e293b;padding:12px 4px}
+.vet-sublist{display:grid;gap:10px}
+.vet-record-row{border:1px solid #dbe4ee;border-radius:14px;padding:13px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;background:#fbfdff}
+.vet-record-row strong{display:block;color:#10233f;margin-bottom:3px}
+.vet-record-row small{display:block;color:#64748b;line-height:1.45}
+.vet-record-actions{display:flex;flex-wrap:wrap;gap:8px}
+.vet-record-actions .btn{min-height:44px}
+.vet-actions-line{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.vet-actions-line .btn{min-height:48px}
+.vet-sticky-actions{position:sticky;bottom:0;z-index:20;display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border:1px solid rgba(12,45,98,.14);border-radius:18px;padding:12px;margin-top:18px;box-shadow:0 -8px 28px rgba(15,23,42,.12)}
+.vet-sticky-actions .btn{min-height:50px;flex:1 1 180px}
+.vet-save-state{font-size:12px;font-weight:900;letter-spacing:.05em;color:#64748b;min-width:90px;text-align:center}
+.vet-save-state.saving{color:#9a6700}.vet-save-state.saved{color:#16794a}.vet-save-state.failed{color:#b42318}
+.vet-status-pill{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 11px;border-radius:999px;font-size:12px;font-weight:900;background:#e8f0fb;color:#0c2d62}
+.vet-status-pill.completed{background:#e9f8ef;color:#17653a}.vet-status-pill.cancelled{background:#fdecec;color:#9b1c1c}.vet-status-pill.in-progress{background:#fff4db;color:#8a5b00}
+.vet-safety-box{border-radius:14px;padding:13px;background:#f5f8fc;color:#42526a;font-size:13px;line-height:1.5;margin-top:12px}
+.vet-history-list{display:grid;gap:10px}
+.vet-history-row{width:100%;text-align:left;background:#fff;border:1px solid #dbe4ee;border-radius:16px;padding:14px;min-height:72px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;color:#0f172a}
+.vet-history-row strong{display:block;font-size:16px}.vet-history-row small{display:block;color:#64748b;margin-top:4px}
+.vet-history-row:hover,.vet-history-row:focus-visible{border-color:#0c2d62;outline:2px solid rgba(12,45,98,.12)}
+.vet-owner-summary{max-width:900px;margin:0 auto}
+.vet-owner-summary .owner-summary-block{background:#fff;border:1px solid #dbe4ee;border-radius:16px;padding:14px;margin:10px 0}
+.vet-owner-summary .owner-summary-block h4{margin:0 0 6px;color:#10233f}
+.vet-owner-summary .owner-summary-block p{margin:0;white-space:pre-wrap;line-height:1.55;color:#334155}
+.vet-hub-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+.vet-hub-actions{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 16px}
+.vet-hub-actions .btn{min-height:48px}
+.queue-open-vet{width:100%;margin-top:8px;min-height:50px!important}
+.vet-modal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.vet-modal-grid .full{grid-column:1/-1}
+.vet-modal-grid label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:800;color:#334155}
+.vet-modal-grid input,.vet-modal-grid textarea,.vet-modal-grid select{min-height:46px;border:1px solid #cbd5e1;border-radius:10px;padding:10px;font:inherit}
+.vet-modal-grid textarea{min-height:82px}
+.vet-follow-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.vet-follow-slot{min-height:54px;border:1px solid #cbd5e1;background:#fff;border-radius:12px;padding:8px;font-weight:800;color:#0c2d62}
+.vet-follow-slot.selected{border-color:#0c2d62;box-shadow:0 0 0 2px rgba(12,45,98,.13);background:#eef4fb}
+.vet-readonly-banner{background:#f8fafc;border:1px solid #dbe4ee;border-radius:14px;padding:12px;margin:10px 0;color:#475569;font-size:13px}
+.vet-attachment-row{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid #dbe4ee;border-radius:12px;padding:10px;margin:8px 0;background:#fff}
+.vet-attachment-row .btn{min-height:42px}
+@media(max-width:900px){.vet-header-grid,.vet-vitals-grid,.vet-owner-safe-grid,.vet-follow-grid,.vet-hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vet-exam-row{grid-template-columns:1fr 1fr}.vet-exam-row .vet-exam-notes{grid-column:1/-1}}
+@media(max-width:640px){.vet-visit-workspace{padding:0 2px 92px}.vet-header-grid,.vet-vitals-grid,.vet-owner-safe-grid,.vet-follow-grid,.vet-hub-grid,.vet-form-grid,.vet-modal-grid{grid-template-columns:1fr}.vet-form-grid .full,.vet-modal-grid .full{grid-column:auto}.vet-section{padding:14px;border-radius:16px}.vet-exam-row{grid-template-columns:1fr}.vet-exam-row .vet-exam-notes{grid-column:auto}.vet-record-row{grid-template-columns:1fr}.vet-sticky-actions{border-radius:14px;padding:10px}.vet-sticky-actions .btn{flex:1 1 100%;min-height:52px}.vet-save-state{width:100%;order:-1}.vet-follow-slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){.vet-visit-workspace *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+@media print{body>*{visibility:hidden!important}.vet-printable,.vet-printable *{visibility:visible!important}.vet-printable{position:absolute!important;left:0;top:0;width:100%;box-shadow:none!important}.workspace-toolbar,.vet-sticky-actions,.btn{display:none!important}}

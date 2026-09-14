@@ -17,3 +17,19 @@
 .clinic-orbit-section:has(.clinic-building-map) .orbit-help{margin-top:14px;font-weight:700}
 @media(max-width:620px){#clinicOrbit.clinic-building-map{padding:10px;border-radius:20px}.building-status{grid-template-columns:1fr}.room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.clinic-building .orbit-node{min-height:116px;font-size:.78rem}.floor-title small{display:none}}
 @media(prefers-reduced-motion:reduce){.clinic-building .orbit-node{transition:none!important}}
+
+/* v40 architectural cutaway */
+#clinicOrbit.clinic-building-map{background:linear-gradient(180deg,#eef7ff,#dcecf8 75%,#eef5fa);padding:22px 16px 30px}
+.clinic-building{position:relative;padding-top:132px;padding-bottom:118px;gap:0;filter:drop-shadow(0 18px 20px rgba(18,49,84,.18))}
+.clinic-building::before{content:"🐾  PET FAMILY ANIMAL CLINIC";position:absolute;top:35px;left:4%;right:4%;height:96px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(145deg,#fff,#eaf2f8);border:3px solid #8fa6b8;border-bottom:0;clip-path:polygon(50% 0,100% 42%,96% 100%,4% 100%,0 42%);padding-top:22px;color:#0c2d62;font-weight:950;font-size:clamp(.9rem,3vw,1.4rem)}
+.clinic-building::after{content:"⬆  MAIN ENTRANCE  ⬆";position:absolute;bottom:18px;left:30%;right:30%;height:78px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#90abc0 0 8%,#d8e8f3 8% 48%,#8aa8be 48% 52%,#d8e8f3 52% 92%,#90abc0 92%);border:3px solid #718da3;border-radius:4px 4px 12px 12px;color:#0c2d62;font-weight:950;font-size:.75rem;text-align:center}
+.building-status{position:absolute;top:-12px;left:0;right:0;z-index:3;filter:none}
+.building-floor{border-radius:0;border:4px solid #6f8799;border-bottom-width:7px;box-shadow:none}
+.building-floor+.building-floor{border-top:0}
+.floor-title{border-radius:0;background:linear-gradient(90deg,#063b79,#0873d8,#063b79);border-bottom:4px solid #6f8799}
+.room-grid{gap:5px;padding:5px;background:#8199aa;position:relative}
+.clinic-building .orbit-node{position:relative!important;overflow:hidden;min-height:150px;background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(228,240,248,.96));border:2px solid #dce9f2;box-shadow:inset 0 -22px 0 rgba(170,198,217,.2)}
+.clinic-building .orbit-node::before{content:"";position:absolute;inset:auto 8% 8px;height:22px;border-top:4px solid #9bb3c4;border-bottom:3px solid #c1d3df;background:repeating-linear-gradient(90deg,transparent 0 18%,rgba(105,137,159,.22) 18% 20%)}
+.clinic-building .orbit-node::after{content:"›";position:absolute;right:9px;top:50%;transform:translateY(-50%);font-size:1.8rem;color:#0d58ae}
+.clinic-building .node-icon,.clinic-building .room-status{position:relative;z-index:1}
+@media(max-width:620px){#clinicOrbit.clinic-building-map{padding:14px 6px 24px}.clinic-building{padding-top:110px;padding-bottom:100px}.clinic-building::before{top:26px;height:82px;font-size:.82rem}.clinic-building::after{left:25%;right:25%;height:65px}.clinic-building .orbit-node{min-height:140px}.building-status{position:static;margin-bottom:8px}}

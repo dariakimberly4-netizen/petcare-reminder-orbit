@@ -133,3 +133,13 @@ body.reduced-motion .app-shell.workspace-open .panel-area,
 .reduced-motion .app-shell.workspace-open .panel-area{
   animation:none;
 }
+
+
+/* Center the orbit dashboard when no workspace panel is open. */
+@media (min-width:860px){
+  .owner-main,
+  .clinic-main{
+    grid-template-columns:minmax(0,620px);
+    justify-content:center;
+  }
+}

@@ -49,7 +49,7 @@
   };
   const fallback=()=>{
     const s=document.createElement('script');
-    s.src='main.js?v=15';
+    s.src='main.js?v=31';
     s.onload=()=>document.dispatchEvent(new Event('DOMContentLoaded'));
     document.head.appendChild(s);
   };

@@ -46,16 +46,16 @@ function registerForm(existing=null){
  ${field('Email address','email','email',o.email||'')}
  ${field('Complete address','address','text',o.address||'')}
  ${field('Emergency contact name','emergencyName','text',o.emergencyName||'')}
- ${field('Emergency contact number','emergencyMobile','tel',o.emergencyMobile||'','false','inputmode="tel"')}
+ ${field('Emergency contact number','emergencyMobile','tel',o.emergencyMobile||'',false,'inputmode="tel"')}
  <h3 class="form-section-title">Pet Information</h3>
  ${field('Pet name','petName','text',existing?.name||'',true)}
  <div class="field"><label for="reg-species">Species *</label><select id="reg-species" name="species" required><option value="">Select species</option>${['Dog','Cat','Bird','Rabbit','Other'].map(x=>`<option ${existing?.species===x?'selected':''}>${x}</option>`).join('')}</select><small class="field-error" data-error="species"></small></div>
  ${field('Breed','breed','text',existing?.breed||'')}
  <div class="field"><label for="reg-sex">Sex *</label><select id="reg-sex" name="sex" required><option value="">Select sex</option>${['Male','Female','Unknown'].map(x=>`<option ${existing?.sex===x?'selected':''}>${x}</option>`).join('')}</select><small class="field-error" data-error="sex"></small></div>
  ${field('Birthday','birthday','date',existing?.birthday||'')}
- ${field('Estimated age','estimatedAge','text',existing?.estimatedAge||'','false','placeholder="Use only if birthday is unknown"')}
+ ${field('Estimated age','estimatedAge','text',existing?.estimatedAge||'',false,'placeholder="Use only if birthday is unknown"')}
  ${field('Color and identifying markings','color','text',existing?.color||'')}
- ${field('Current weight','weight','text',existing?.weight||'','false','placeholder="Example: 6.4 kg"')}
+ ${field('Current weight','weight','text',existing?.weight||'',false,'placeholder="Example: 6.4 kg"')}
  ${field('Microchip number','microchip','text',existing?.microchip||'')}
  <div class="field"><label for="reg-neutered">Spayed or neutered</label><select id="reg-neutered" name="neutered"><option value="">Not recorded</option><option ${existing?.neutered==='Yes'?'selected':''}>Yes</option><option ${existing?.neutered==='No'?'selected':''}>No</option></select></div>
  ${area('Allergies','allergies',existing?.allergies||'',true)}

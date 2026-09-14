@@ -139,7 +139,14 @@ body.reduced-motion .app-shell.workspace-open .panel-area,
 @media (min-width:860px){
   .owner-main,
   .clinic-main{
-    grid-template-columns:minmax(0,620px);
+    grid-template-columns:minmax(0,760px);
     justify-content:center;
+  }
+
+  .owner-main > .orbit-section,
+  .clinic-main > .orbit-section{
+    width:100%;
+    max-width:760px;
+    margin-inline:auto;
   }
 }

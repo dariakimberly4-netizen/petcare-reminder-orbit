@@ -49,11 +49,11 @@
   };
   const fallback=()=>{
     const s=document.createElement('script');
-    s.src='main.js?v=36';
+    s.src='main.js?v=38';
     s.onload=()=>document.dispatchEvent(new Event('DOMContentLoaded'));
     document.head.appendChild(s);
   };
-  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=36',{cache:'no-store'}))
+  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=38',{cache:'no-store'}))
     .then(r=>{if(!r.ok)throw new Error('app.js '+r.status);return r.text()})
     .then(exposeAndRun)
     .catch(err=>{console.error('PetCare full app load failed',err);fallback()});

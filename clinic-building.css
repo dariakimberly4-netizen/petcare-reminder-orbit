@@ -1,0 +1,19 @@
+/* Pet Family Clinic Building Cutaway */
+#clinicOrbit.clinic-building-map{width:100%;max-width:940px;height:auto;min-height:0;margin:16px auto 0;padding:18px;background:linear-gradient(180deg,#f8fbff,#eaf4fc);border:1px solid #cddff0;border-radius:28px;overflow:visible;touch-action:auto}
+#clinicOrbit.clinic-building-map .orbit-ring,#clinicOrbit.clinic-building-map .clinic-center{display:none}
+#clinicOrbit.clinic-building-map #clinicNodes{position:static;inset:auto;display:block;width:100%;height:auto}
+.clinic-building{display:grid;gap:14px}
+.building-status{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.building-stat{min-height:58px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:14px;background:#fff;border:1px solid #d6e4f2;color:#0c2d62;font-weight:900;text-align:center}
+.building-floor{overflow:hidden;border-radius:22px;border:2px solid #1266c7;background:#fff;box-shadow:0 12px 26px rgba(12,45,98,.1)}
+.floor-title{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 16px;background:#0d58ae;color:#fff;font-weight:900;letter-spacing:.02em}
+.floor-title small{font-weight:700;opacity:.9}
+.room-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:#cbdced}
+.clinic-building .orbit-node{position:static!important;transform:none!important;width:auto!important;height:auto!important;min-height:128px;border:0;border-radius:0;background:#fff;box-shadow:none;padding:14px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#0c2d62;font-size:.82rem;font-weight:900;line-height:1.12;text-align:center}
+.clinic-building .orbit-node:active{background:#e8f2ff;transform:scale(.98)!important}
+.clinic-building .node-icon{font-size:2rem}
+.room-status{display:block;padding:6px 9px;border-radius:999px;background:#e7f0fb;color:#0c2d62;font-size:.68rem;font-weight:900}
+.room-status.good{background:#dff6e7;color:#126b35}.room-status.warn{background:#fff0cf;color:#884d00}.room-status.alert{background:#ffe1e1;color:#a51e1e}.room-status.info{background:#eee5ff;color:#5b2ba0}
+.clinic-orbit-section:has(.clinic-building-map) .orbit-help{margin-top:14px;font-weight:700}
+@media(max-width:620px){#clinicOrbit.clinic-building-map{padding:10px;border-radius:20px}.building-status{grid-template-columns:1fr}.room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.clinic-building .orbit-node{min-height:116px;font-size:.78rem}.floor-title small{display:none}}
+@media(prefers-reduced-motion:reduce){.clinic-building .orbit-node{transition:none!important}}

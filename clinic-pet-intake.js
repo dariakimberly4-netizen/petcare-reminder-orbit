@@ -159,6 +159,7 @@ function enhance(){
  }
  enhancing=false;
 }
+window.addEventListener('click',e=>{const n=e.target.closest?.('[data-clinic-module="pets"]');if(!n)return;e.preventDefault();e.stopImmediatePropagation();window.PetCareWorkspace?.open?.('clinic','pets')||window.renderClinic?.('pets')},true);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-open-clinic-pet]');if(b){e.preventDefault();profile(b.dataset.openClinicPet)}},true);
 const observer=new MutationObserver(()=>queueMicrotask(enhance));
 window.addEventListener('DOMContentLoaded',()=>{const p=document.getElementById('clinicPanel');if(p)observer.observe(p,{childList:true,subtree:true});enhance()});

@@ -1,0 +1,46 @@
+/* Clinic pet registration and patient profile */
+.clinic-register-toolbar{display:flex;justify-content:flex-end;margin:0 0 14px}
+.clinic-register-toolbar .btn{min-width:220px}
+.registration-shell{max-width:900px;margin:auto}
+.form-section-title{grid-column:1/-1;margin:14px 0 0;padding:12px 0 7px;border-bottom:2px solid var(--soft);color:var(--blue2)}
+.field-error{display:block;min-height:18px;color:var(--danger);font-weight:750;font-size:.76rem}
+.registration-actions{display:flex;justify-content:flex-end;gap:10px}
+.registration-actions .btn{min-width:160px}
+.duplicate-warning{grid-column:1/-1;background:#fff4db;border:2px solid #f1b84b;border-radius:18px;padding:14px;color:#684500}
+.duplicate-warning .actions{margin-top:12px}
+.clinic-pet-row .meta{min-width:0}
+.pet-profile-print{max-width:960px;margin:auto}
+.profile-title{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.profile-title img,.profile-photo-placeholder{width:104px;height:104px;border-radius:24px;object-fit:cover;background:#edf5ff;display:grid;place-items:center;font-size:3rem;border:1px solid var(--line)}
+.profile-title h2{margin:4px 0}
+.patient-number{display:inline-flex;background:#eaf2ff;color:var(--blue2);padding:7px 10px;border-radius:10px}
+.profile-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.profile-grid>div,.medical-alerts>div{display:flex;flex-direction:column;gap:4px;padding:13px;border:1px solid var(--line);border-radius:16px;background:#f9fbfd}
+.profile-grid small,.medical-alerts small{color:var(--muted);font-weight:850}
+.profile-grid span{color:var(--muted);font-size:.8rem}
+.medical-alerts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.medical-alerts>div{background:#fff8e7;border-color:#ffe3a3}
+.profile-actions{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.profile-history{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.profile-history section{border:1px solid var(--line);border-radius:18px;padding:14px}
+.profile-history h3{margin:0 0 10px}
+.profile-history-row{display:flex;flex-direction:column;padding:9px 0;border-bottom:1px solid var(--line)}
+.profile-history-row:last-child{border-bottom:0}
+.profile-history-row small{color:var(--muted)}
+.audit-note{margin-top:16px;padding:12px;border-radius:14px;background:#f3f5f8;color:var(--muted);font-size:.78rem}
+@media(max-width:700px){
+ .clinic-register-toolbar,.clinic-register-toolbar .btn{width:100%}
+ .registration-actions{flex-direction:column-reverse}
+ .registration-actions .btn{width:100%}
+ .profile-title{align-items:flex-start}
+ .profile-title img,.profile-photo-placeholder{width:82px;height:82px;min-width:82px;border-radius:20px}
+ .profile-grid,.medical-alerts,.profile-history{grid-template-columns:1fr}
+ .profile-actions{display:grid;grid-template-columns:1fr}
+ .profile-actions .btn{width:100%;min-height:52px}
+}
+@media print{
+ body *{visibility:hidden!important}
+ .pet-profile-print,.pet-profile-print *{visibility:visible!important}
+ .pet-profile-print{position:absolute;inset:0;width:100%;padding:20px}
+ .profile-actions,.modal-close{display:none!important}
+}

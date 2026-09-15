@@ -3,6 +3,12 @@
   const api=window.PetCareSupabase;
   const exposeAndRun=(src)=>{
     let fixed=src.replace("},0)}\nif(m==='documents')","},0);\nif(m==='documents')");
+    // Restore the clinic's draggable orbit by removing the temporary
+    // building-cutaway branch before the application is evaluated.
+    fixed=fixed.replace(
+      /function renderOrbit\(mode\)\{if\(mode==='clinic'\)\{[\s\S]*?;return\}const mods=/,
+      "function renderOrbit(mode){if(mode==='clinic')document.querySelector('#clinicOrbit')?.classList.remove('clinic-building-map');const mods="
+    );
     fixed=fixed.replace("const KEY='petcare-reminder-orbit-v1';","const KEY=(window.PetCareSupabase?.active?'petcare-reminder-orbit-secure':'petcare-reminder-orbit-v1');");
     fixed=fixed.replace("let data;try{data=JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){data=seed()}let selected='p1'","let data;try{data=(window.PetCareSupabase?.active&&window.PetCareSupabase.initialData)||JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){data=seed()}let selected=(data.pets&&data.pets[0]?data.pets[0].id:'p1')");
     fixed=fixed.replace("save=()=>localStorage.setItem(KEY,JSON.stringify(data))","save=()=>{localStorage.setItem(KEY,JSON.stringify(data));if(window.PetCareSupabase?.active)window.PetCareSupabase.syncLegacy(data)}");

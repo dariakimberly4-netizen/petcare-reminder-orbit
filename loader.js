@@ -1,10 +1,16 @@
 (()=>{
   'use strict';
   const api=window.PetCareSupabase;
+  const loadDoctorPortal=()=>{
+    if(!document.querySelector('link[data-doctor-access]')){
+      const l=document.createElement('link');l.rel='stylesheet';l.href='doctor-access.css?v=42';l.dataset.doctorAccess='1';document.head.appendChild(l);
+    }
+    if(!document.querySelector('script[data-doctor-access]')){
+      const s=document.createElement('script');s.src='doctor-access.js?v=42';s.defer=true;s.dataset.doctorAccess='1';document.head.appendChild(s);
+    }
+  };
   const exposeAndRun=(src)=>{
     let fixed=src.replace("},0)}\nif(m==='documents')","},0);\nif(m==='documents')");
-    // Restore the clinic's draggable orbit by removing the temporary
-    // building-cutaway branch before the application is evaluated.
     fixed=fixed.replace(
       /function renderOrbit\(mode\)\{if\(mode==='clinic'\)\{[\s\S]*?;return\}const mods=/,
       "function renderOrbit(mode){if(mode==='clinic')document.querySelector('#clinicOrbit')?.classList.remove('clinic-building-map');const mods="
@@ -37,6 +43,7 @@
     }catch(e){}`;
     new Function(wrapped)();
     document.dispatchEvent(new Event('DOMContentLoaded'));
+    loadDoctorPortal();
     setTimeout(()=>{
       try{
         if(typeof window.renderOrbit==='function'){
@@ -56,7 +63,7 @@
   const fallback=()=>{
     const s=document.createElement('script');
     s.src='main.js?v=40';
-    s.onload=()=>document.dispatchEvent(new Event('DOMContentLoaded'));
+    s.onload=()=>{document.dispatchEvent(new Event('DOMContentLoaded'));loadDoctorPortal()};
     document.head.appendChild(s);
   };
   Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=40',{cache:'no-store'}))

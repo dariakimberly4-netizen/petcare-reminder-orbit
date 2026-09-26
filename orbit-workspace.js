@@ -42,6 +42,17 @@
   }
 
   function openWorkspace(mode,module){
+    if(mode==='clinic'&&['discharge','documents-clinic','staff','audit'].includes(module)){
+      const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
+      const cfg={
+        discharge:['Discharge & Follow-Up','POST-VISIT CARE','Prepare discharge instructions and manage recovery follow-ups.',['READY FOR DISCHARGE','DISCHARGE INSTRUCTIONS','TAKE-HOME MEDICINES','FOLLOW-UP SCHEDULE','RECOVERY STATUS','NEXT APPOINTMENT']],
+        'documents-clinic':['Documents & Certificates','CLINIC DOCUMENTS','Create, manage and print official patient documents.',['MEDICAL CERTIFICATE','VACCINATION CERTIFICATE','PRESCRIPTION','CONSENT FORM','LAB REPORT','PATIENT RECORD']],
+        staff:['Staff & Vet Management','TEAM MANAGEMENT','Manage clinic staff, schedules, assignments and access.',['VETERINARIANS','ASSISTANTS','CASHIERS','STAFF SCHEDULE','ROLE & PERMISSIONS','DUTY ASSIGNMENTS']],
+        audit:['Audit Trail & End-of-Day Closing','CONTROL & RECONCILIATION','Review activity history and close the clinic day securely.',['ACTIVITY LOG','PAYMENT CHANGES','VOIDED TRANSACTIONS','INVENTORY ADJUSTMENTS','EXPECTED VS ACTUAL CASH','PAYMENT BREAKDOWN','CASHIER CLOSING','END-OF-DAY REPORT']]
+      }[module];
+      p.innerHTML='<div class="card"><div class="card-head"><div><span class="smart-eyebrow">'+cfg[1]+'</span><h2>'+cfg[0]+'</h2><p>'+cfg[2]+'</p></div><button class="btn btn-primary" data-final-new="'+module+'">+ NEW</button></div><div class="smart-grid">'+cfg[3].map(x=>'<button class="smart-action">'+x+'</button>').join('')+'</div></div>';
+      decorate(mode);requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));return;
+    }
     if(mode==='clinic'&&module==='triage'){
       const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
       p.innerHTML='<div class="card"><div class="card-head"><div><span class="smart-eyebrow">EMERGENCY CARE</span><h2>Emergency & Triage</h2><p>Assess urgency, record vital signs and prioritize emergency patients.</p></div><button class="btn btn-primary" data-new-triage>+ NEW TRIAGE</button></div><div class="grid two"><div class="stat-card"><strong>1</strong><small>Critical</small></div><div class="stat-card"><strong>2</strong><small>Urgent</small></div><div class="stat-card"><strong>3</strong><small>Waiting</small></div><div class="stat-card"><strong>1</strong><small>Vet Assigned</small></div></div><div class="smart-grid"><button class="smart-action">TRIAGE QUEUE</button><button class="smart-action">VITAL SIGNS</button><button class="smart-action">PRIORITY LEVEL</button><button class="smart-action">ASSIGN VET</button><button class="smart-action">EMERGENCY NOTES</button><button class="smart-action">TRANSFER TO CONSULTATION</button></div></div>';
@@ -93,6 +104,18 @@
       e.preventDefault();e.stopImmediatePropagation();
       const mode=close.closest('#clinicApp')?'clinic':'owner';
       closeWorkspace(mode);
+      return;
+    }
+
+    const finalNew=e.target.closest('[data-final-new]');
+    if(finalNew){
+      e.preventDefault();e.stopImmediatePropagation();
+      const p=panel('clinic');if(!p)return;
+      const names={discharge:'New Discharge / Follow-Up','documents-clinic':'New Document / Certificate',staff:'New Staff / Vet Record',audit:'New Closing Record'};
+      const form=document.createElement('div');form.className='card final-module-form';
+      form.innerHTML='<h2>'+names[finalNew.dataset.finalNew]+'</h2><form><div class="form-grid"><div class="field"><label>Record / Patient Name</label><input required></div><div class="field"><label>Date</label><input type="date" required></div><div class="field full"><label>Details / Notes</label><textarea rows="4" required></textarea></div><div class="field full"><button class="btn btn-primary" type="submit">SAVE RECORD</button></div></div></form>';
+      p.appendChild(form);form.scrollIntoView({behavior:'smooth'});
+      form.querySelector('form').addEventListener('submit',ev=>{ev.preventDefault();form.innerHTML='<h2>Record Saved</h2><p class="smart-note">The clinic record has been saved successfully.</p>';});
       return;
     }
 

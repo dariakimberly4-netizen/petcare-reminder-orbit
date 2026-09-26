@@ -23,11 +23,7 @@ function html(){
  </div>`;
 }
 function markActive(){document.querySelectorAll('#clinicOrbit .orbit-node').forEach(n=>{n.classList.remove('is-selected','is-active','active');n.removeAttribute('aria-current')})}
-function applyNew(){
-  document.querySelectorAll('#clinicOrbit .orbit-node.is-new-feature,#ownerOrbit .orbit-node.is-new-feature').forEach(n=>n.classList.remove('is-new-feature'));
-  const seen=localStorage.getItem('petOwnerV76Seen')==='1';
-  if(!seen) document.querySelectorAll('#ownerOrbit .orbit-node').forEach(n=>n.classList.add('is-new-feature'));
-},true);
+function applyNew(){document.querySelectorAll('#ownerOrbit .orbit-node,#clinicOrbit .orbit-node').forEach(n=>n.classList.remove('is-new-feature','owner-new-feature'));},true);
 window.PetCareTodayClinic={open};
 const obs=new MutationObserver(()=>applyNew());const root=document.getElementById('clinicNodes');if(root)obs.observe(root,{childList:true,subtree:true});setTimeout(applyNew,100);setTimeout(applyNew,500);
 })();
@@ -43,63 +39,5 @@ const logoCenterObserver=new MutationObserver(()=>{const b=document.querySelecto
 logoCenterObserver.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
 setTimeout(preserveClinicLogoCenter,50);setTimeout(preserveClinicLogoCenter,300);setTimeout(preserveClinicLogoCenter,1000);
 
-/* v83 safe Pet Owner NEW highlight without wrapping renderOrbit */
-function petOwnerNewBadge(){
- const acct=document.querySelector('#ownerNodes [data-owner-module="account-hub"]');
- if(!acct)return;
- acct.classList.add('is-new-feature');
- if(!acct.querySelector('.pet-new-badge')){
-   const b=document.createElement('b');b.className='pet-new-badge';b.textContent='NEW';acct.appendChild(b);
- }
-}
-setTimeout(petOwnerNewBadge,250);setTimeout(petOwnerNewBadge,800);setTimeout(petOwnerNewBadge,1600);
 
-/* v88 one-time Pet Owner highlight */
-(function(){
- const KEY='pet-owner-account-highlight-seen-v88';
- function apply(){
-  const acct=document.querySelector('#ownerNodes [data-owner-module="account-hub"]');
-  if(!acct)return;
-  if(localStorage.getItem(KEY)==='1'){
-   acct.classList.remove('is-new-feature');
-   acct.querySelector('.pet-new-badge,.inline-new-badge')?.remove();
-   acct.style.border='';acct.style.boxShadow='';
-  }else{
-   acct.classList.add('is-new-feature');
-   if(!acct.querySelector('.pet-new-badge')){
-    const b=document.createElement('b');b.className='pet-new-badge';b.textContent='NEW';acct.appendChild(b);
-   }
-  }
- }
- document.addEventListener('click',e=>{
-  const acct=e.target.closest('#ownerNodes [data-owner-module="account-hub"]');
-  if(!acct)return;
-  localStorage.setItem(KEY,'1');
-  acct.classList.remove('is-new-feature');
-  acct.querySelector('.pet-new-badge,.inline-new-badge')?.remove();
-  acct.style.border='';acct.style.boxShadow='';
- },true);
- setTimeout(apply,250);setTimeout(apply,900);
-})();
 
-/* v90 definitive one-time owner highlight cleanup */
-(function(){
- const KEY='pet-owner-account-opened';
- function clear(){
-   document.querySelectorAll('#ownerNodes [data-owner-module="account-hub"]').forEach(acct=>{
-     acct.classList.remove('is-new-feature','owner-new-feature');
-     acct.querySelectorAll('.pet-new-badge,.inline-new-badge').forEach(x=>x.remove());
-     acct.style.removeProperty('border');
-     acct.style.removeProperty('box-shadow');
-   });
- }
- if(localStorage.getItem(KEY)==='1') setTimeout(clear,50);
- document.addEventListener('click',e=>{
-   if(!e.target.closest('#ownerNodes [data-owner-module="account-hub"]'))return;
-   localStorage.setItem(KEY,'1');
-   clear();
-   setTimeout(clear,50);setTimeout(clear,300);setTimeout(clear,1000);
- },true);
- const mo=new MutationObserver(()=>{if(localStorage.getItem(KEY)==='1')clear()});
- mo.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style']});
-})();

@@ -40,8 +40,10 @@ const obs=new MutationObserver(()=>applyNew());const root=document.getElementByI
 /* v70: preserve logo-first clinic center after all runtime updates */
 function preserveClinicLogoCenter(){
  const b=document.querySelector('#clinicOrbit .clinic-center'); if(!b)return;
+ const correct=b.classList.contains('clinic-logo-first')&&b.querySelector('img')&&b.querySelector('.center-open-label')&&b.children.length===2;
+ if(correct)return;
  b.classList.add('clinic-logo-first');
- b.innerHTML='<img src="Pet-Family-Animal-Clinic-and-Grooming-Center.png?v=70" alt="Pet Family Animal Clinic and Grooming Center logo"><span class="center-open-label">OPEN TODAY\'S CLINIC</span>';
+ b.innerHTML='<img src="Pet-Family-Animal-Clinic-and-Grooming-Center.png?v=72" alt="Pet Family Animal Clinic and Grooming Center logo"><span class="center-open-label">OPEN TODAY\'S CLINIC</span>';
 }
 const logoCenterObserver=new MutationObserver(()=>{const b=document.querySelector('#clinicOrbit .clinic-center');if(b&&!b.querySelector('.center-open-label'))preserveClinicLogoCenter()});
 logoCenterObserver.observe(document.documentElement,{childList:true,subtree:true,characterData:true});

@@ -42,6 +42,22 @@
   }
 
   function openWorkspace(mode,module){
+    const ownerHubs={
+      'pets-hub':['My Pets','PET PROFILE',['Pet Profile','Owner Details','Medical History','Allergies & Conditions','Microchip','Add / Switch Pet']],
+      'health-hub':['Health','PET HEALTH',['Vaccinations','Deworming','Medications','Prescriptions','Lab Results','Diagnostic Results','Admission Status','Discharge Instructions']],
+      'appointments-hub':['Appointments','VET VISITS',['Book Appointment','Upcoming Visits','Reschedule / Cancel','Visit History','Follow-Ups']],
+      'care-hub':['Care & Reminders','PET CARE',['Vaccine Reminders','Medication Reminders','Deworming Reminders','Grooming Reminders','Follow-Up Reminders']],
+      'grooming-hub':['Grooming & Services','PET SERVICES',['Book Grooming','Upcoming Grooming','Service Status','Grooming History']],
+      'records-hub':['Records & Documents','PET RECORDS',['Digital Vaccine Card','Medical Records','Certificates','Prescriptions','Lab Reports','Emergency Pet Card','Share Pet Record']],
+      'payments-hub':['Bills & Payments','PAYMENTS',['Current Balance','Bills','Payment History','Receipts']],
+      'account-hub':['My Account','OWNER ACCOUNT',['Owner Profile','Contact Details','Emergency Contact','Notification Preferences','Security']]
+    };
+    if(mode==='owner'&&ownerHubs[module]){
+      const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
+      const x=ownerHubs[module];
+      p.innerHTML='<div class="card owner-hub-workspace"><div class="card-head"><div><span class="smart-eyebrow">'+x[1]+'</span><h2>'+x[0]+'</h2><p>Select a pet-owner function.</p></div></div><div class="smart-grid">'+x[2].map(v=>'<button class="smart-action" data-owner-hub-action="'+v+'">'+v+'</button>').join('')+'</div></div>';
+      decorate(mode);requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));return;
+    }
     const hubs={
       'patients-hub':['Patients','PATIENT CARE',['Pet Registration','Owner Profile','Pet Profile','Medical History','Allergies & Alerts','Search Patient']],
       'queue-hub':['Appointments & Queue','FRONT DESK',['Appointments','Walk-In Registration','Check-In','Waiting Queue',"Today's Schedule",'Completed Visits']],
@@ -122,6 +138,18 @@
       closeWorkspace(mode);
       return;
     }
+
+    const ownerSub=e.target.closest('[data-owner-hub-action]');
+    if(ownerSub){
+      e.preventDefault();e.stopImmediatePropagation();
+      const name=ownerSub.dataset.ownerHubAction,p=panel('owner');if(!p)return;
+      const box=document.createElement('div');box.className='card owner-sub-workspace';
+      box.innerHTML='<div class="card-head"><div><span class="smart-eyebrow">PET OWNER WORKSPACE</span><h2>'+name+'</h2><p>View and manage '+name.toLowerCase()+'.</p></div><button class="btn btn-primary" data-owner-add="'+name+'">+ ADD / UPDATE</button></div><div class="list"><div class="list-item"><div><strong>'+name+'</strong><small>Current pet record</small></div><button class="btn btn-outline" data-owner-view>VIEW DETAILS</button></div></div>';
+      p.querySelector('.owner-hub-workspace')?.replaceWith(box);return;
+    }
+    const ownerAdd=e.target.closest('[data-owner-add]');
+    if(ownerAdd){e.preventDefault();e.stopImmediatePropagation();const p=panel('owner'),f=document.createElement('div');f.className='card owner-record-form';f.innerHTML='<h2>'+ownerAdd.dataset.ownerAdd+'</h2><form><div class="form-grid"><div class="field"><label>Title / Record</label><input required></div><div class="field"><label>Date</label><input type="date"></div><div class="field full"><label>Details</label><textarea rows="4"></textarea></div><div class="field full"><button class="btn btn-primary" type="submit">SAVE</button></div></div></form>';p.appendChild(f);f.scrollIntoView({behavior:'smooth'});f.querySelector('form').addEventListener('submit',ev=>{ev.preventDefault();f.innerHTML='<h2>Saved</h2><p class="smart-note">Pet record updated successfully.</p>';});return}
+    if(e.target.closest('[data-owner-view]')){e.preventDefault();alert('Pet record details opened.');return}
 
     const sub=e.target.closest('[data-hub-action]');
     if(sub){

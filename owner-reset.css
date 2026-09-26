@@ -22,13 +22,14 @@
  content:none!important;display:none!important;background:none!important;border:0!important;box-shadow:none!important;
 }
 
-/* v97 NEW highlight — only My Account */
-#ownerOrbit [data-owner-module="account-hub"].new-highlight{
+
+/* v98 NEW highlight — requested Pet Owner modules only */
+#ownerOrbit .orbit-node.new-highlight{
  border:3px solid #64d900!important;
  box-shadow:0 0 0 5px rgba(100,217,0,.22),0 14px 30px rgba(18,58,145,.20)!important;
  position:absolute!important;
 }
-#ownerOrbit [data-owner-module="account-hub"].new-highlight::after{
+#ownerOrbit .orbit-node.new-highlight::after{
  content:"NEW"!important;display:block!important;position:absolute!important;
  top:-9px!important;right:-8px!important;background:#64d900!important;color:#143b08!important;
  border:2px solid #fff!important;border-radius:999px!important;padding:4px 7px!important;

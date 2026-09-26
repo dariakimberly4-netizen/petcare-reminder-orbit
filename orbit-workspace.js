@@ -123,6 +123,29 @@
       return;
     }
 
+    const sub=e.target.closest('[data-hub-action]');
+    if(sub){
+      e.preventDefault();e.stopImmediatePropagation();
+      const name=sub.dataset.hubAction,p=panel('clinic');if(!p)return;
+      const back=document.createElement('div');back.className='card clinic-sub-workspace';
+      back.innerHTML='<div class="card-head"><div><span class="smart-eyebrow">CLINIC WORKSPACE</span><h2>'+name+'</h2><p>Manage '+name.toLowerCase()+' records and actions.</p></div><button class="btn btn-primary" data-sub-add="'+name+'">+ ADD RECORD</button></div><div class="search-box"><input data-sub-search placeholder="Search records"><button class="btn btn-primary" data-sub-search-btn>SEARCH</button></div><div class="list" data-sub-list><div class="list-item"><div><strong>'+name+' Sample Record</strong><small>Active · Updated today</small></div><div><button class="btn btn-outline" data-sub-view>VIEW</button> <button class="btn btn-outline" data-sub-edit>EDIT</button></div></div></div>';
+      p.querySelector('.clinic-hub-workspace')?.replaceWith(back);
+      return;
+    }
+    const addSub=e.target.closest('[data-sub-add]');
+    if(addSub){
+      e.preventDefault();e.stopImmediatePropagation();
+      const p=panel('clinic'),box=document.createElement('div');box.className='card sub-record-form';
+      box.innerHTML='<h2>Add '+addSub.dataset.subAdd+'</h2><form><div class="form-grid"><div class="field"><label>Patient / Record Name</label><input name="name" required></div><div class="field"><label>Date</label><input name="date" type="date" required></div><div class="field"><label>Status</label><select name="status"><option>ACTIVE</option><option>PENDING</option><option>COMPLETED</option></select></div><div class="field full"><label>Details / Notes</label><textarea name="notes" rows="4"></textarea></div><div class="field full"><button class="btn btn-primary" type="submit">SAVE</button> <button class="btn btn-outline" type="button" data-sub-cancel>CANCEL</button></div></div></form>';
+      p.appendChild(box);box.scrollIntoView({behavior:'smooth'});
+      box.querySelector('form').addEventListener('submit',ev=>{ev.preventDefault();const d=new FormData(ev.target),list=p.querySelector('[data-sub-list]');if(list)list.insertAdjacentHTML('afterbegin','<div class="list-item"><div><strong>'+String(d.get('name')).replace(/[<>]/g,'')+'</strong><small>'+String(d.get('status'))+' · Saved today</small></div><div><button class="btn btn-outline" data-sub-view>VIEW</button> <button class="btn btn-outline" data-sub-edit>EDIT</button></div></div>');box.remove();});
+      return;
+    }
+    if(e.target.closest('[data-sub-cancel]')){e.preventDefault();e.target.closest('.sub-record-form')?.remove();return}
+    if(e.target.closest('[data-sub-view]')){e.preventDefault();alert('Record details opened.');return}
+    if(e.target.closest('[data-sub-edit]')){e.preventDefault();alert('Edit mode enabled for this record.');return}
+    if(e.target.closest('[data-sub-search-btn]')){e.preventDefault();const p=panel('clinic'),q=(p.querySelector('[data-sub-search]')?.value||'').toLowerCase();p.querySelectorAll('[data-sub-list] .list-item').forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?'':'none');return}
+
     const finalNew=e.target.closest('[data-final-new]');
     if(finalNew){
       e.preventDefault();e.stopImmediatePropagation();

@@ -195,3 +195,22 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
   #clinicOrbit .orbit-node .node-label{max-width:61px!important}
   #clinicOrbit .orbit-center{width:38%!important;height:38%!important}
 }
+
+
+/* v69 — clinic center is logo first */
+#clinicOrbit .clinic-logo-first{
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  padding:16px!important;gap:8px!important;
+}
+#clinicOrbit .clinic-logo-first img{
+  width:72%!important;max-width:150px!important;height:auto!important;object-fit:contain!important;
+  margin:0 auto!important;
+}
+#clinicOrbit .clinic-logo-first .center-open-label{
+  font-size:.62rem!important;font-weight:900!important;letter-spacing:.04em!important;
+  color:#123a91!important;line-height:1.1!important;text-align:center!important;
+}
+@media(max-width:640px){
+ #clinicOrbit .clinic-logo-first img{width:76%!important;max-width:125px!important}
+ #clinicOrbit .clinic-logo-first .center-open-label{font-size:.52rem!important}
+}

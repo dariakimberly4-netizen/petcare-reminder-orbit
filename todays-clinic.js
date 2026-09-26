@@ -23,7 +23,7 @@ function html(){
  </div>`;
 }
 function markActive(){document.querySelectorAll('#clinicOrbit .orbit-node').forEach(n=>{n.classList.remove('is-selected','is-active','active');n.removeAttribute('aria-current')})}
-function applyNew(){['laboratory','prescriptions','inventory','billing'].forEach(m=>document.querySelector('#clinicOrbit [data-clinic-module="'+m+'"]')?.classList.add('is-new-feature'))}
+function applyNew(){['laboratory','inventory','billing'].forEach(m=>document.querySelector('#clinicOrbit [data-clinic-module="'+m+'"]')?.classList.add('is-new-feature'))}
 function open(){markActive('dashboard');ws()?.showCustom?.('clinic',html(),'todays-clinic')}
 function refresh(){if(ws()?.current?.('clinic')==='todays-clinic')ws()?.refreshCustom?.('clinic',html())}
 function add(){const pet=prompt('Pet name');if(!pet)return;const owner=prompt('Owner name','Walk-in')||'Walk-in';const reason=prompt('Reason / service','Consultation')||'Consultation';rows.push({id:'tc'+Date.now(),pet,owner,reason,stage:'WAITING',priority:/emergency|critical/i.test(reason)?'EMERGENCY':'NORMAL'});save();refresh()}

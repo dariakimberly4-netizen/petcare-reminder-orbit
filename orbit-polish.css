@@ -295,3 +295,18 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
 /* v90 hide any legacy NEW badge after account has been opened */
 #ownerNodes [data-owner-module="account-hub"]:not(.is-new-feature) .pet-new-badge,
 #ownerNodes [data-owner-module="account-hub"]:not(.is-new-feature) .inline-new-badge{display:none!important}
+
+/* v91 final: no Pet Owner node remains highlighted */
+#ownerOrbit .orbit-node,
+#ownerOrbit .orbit-node.is-new-feature,
+#ownerOrbit .orbit-node.owner-new-feature,
+#ownerNodes [data-owner-module="account-hub"]{
+ border:1px solid #dfe7ef!important;
+ box-shadow:0 8px 22px rgba(18,58,145,.12)!important;
+ outline:none!important;
+}
+#ownerOrbit .orbit-node::after,
+#ownerOrbit .orbit-node.is-new-feature::after,
+#ownerOrbit .orbit-node.owner-new-feature::after,
+#ownerNodes .pet-new-badge,
+#ownerNodes .inline-new-badge{display:none!important;content:none!important}

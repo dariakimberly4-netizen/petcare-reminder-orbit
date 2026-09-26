@@ -155,3 +155,23 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
   z-index:12 !important;
 }
 #clinicOrbit .orbit-node.is-selected .node-icon{filter:none!important}
+
+
+/* v55 — rule: highlight NEW features only, never selected state */
+#clinicOrbit .orbit-node.is-selected,
+#clinicOrbit .orbit-node.active,
+#clinicOrbit .orbit-node.is-active,
+#clinicOrbit .orbit-node[aria-current="page"]{
+  background:#fff !important;color:#0c2d62 !important;border:1px solid #dfe7ef !important;
+  box-shadow:0 8px 22px rgba(18,58,145,.12) !important;
+}
+#clinicOrbit .orbit-node.is-new-feature{
+  border:3px solid #64d900 !important;
+  box-shadow:0 0 0 5px rgba(100,217,0,.20),0 14px 30px rgba(18,58,145,.20) !important;
+  position:absolute;
+}
+#clinicOrbit .orbit-node.is-new-feature::after{
+  content:"NEW";position:absolute;right:-5px;top:-8px;transform:none;
+  background:#64d900;color:#143b08;border-radius:999px;padding:4px 7px;
+  font-size:.55rem;font-weight:950;line-height:1;letter-spacing:.04em;
+}

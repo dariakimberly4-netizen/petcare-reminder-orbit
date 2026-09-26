@@ -23,16 +23,12 @@ function html(){
  </div>`;
 }
 function markActive(){document.querySelectorAll('#clinicOrbit .orbit-node').forEach(n=>{n.classList.remove('is-selected','is-active','active');n.removeAttribute('aria-current')})}
-function applyNew(){['management-hub'].forEach(m=>document.querySelector('#clinicOrbit [data-clinic-module="'+m+'"]')?.classList.add('is-new-feature'))}
-function open(){markActive('dashboard');ws()?.showCustom?.('clinic',html(),'todays-clinic')}
-function refresh(){if(ws()?.current?.('clinic')==='todays-clinic')ws()?.refreshCustom?.('clinic',html())}
-function add(){const pet=prompt('Pet name');if(!pet)return;const owner=prompt('Owner name','Walk-in')||'Walk-in';const reason=prompt('Reason / service','Consultation')||'Consultation';rows.push({id:'tc'+Date.now(),pet,owner,reason,stage:'WAITING',priority:/emergency|critical/i.test(reason)?'EMERGENCY':'NORMAL'});save();refresh()}
-document.addEventListener('click',e=>{
- const center=e.target.closest('#clinicOrbit .clinic-center');if(center){e.preventDefault();e.stopImmediatePropagation();return open()}
- const n=e.target.closest('[data-tc-next]');if(n){e.preventDefault();const r=rows.find(x=>x.id===n.dataset.tcNext);if(r){r.stage=next(r.stage);save();refresh()}return}
- if(e.target.closest('[data-tc-add]')){e.preventDefault();return add()}
- const m=e.target.closest('[data-tc-module]');if(m){e.preventDefault();markActive(m.dataset.tcModule);ws()?.open?.('clinic',m.dataset.tcModule);return}
- const o=e.target.closest('[data-tc-open]');if(o){e.preventDefault();const r=rows.find(x=>x.id===o.dataset.tcOpen);if(!r)return;const body=document.getElementById('modalBody'),modal=document.getElementById('modal');body.innerHTML=`<h2>${esc(r.pet)} — Patient Record</h2><p><b>Owner:</b> ${esc(r.owner)}</p><p><b>Visit reason:</b> ${esc(r.reason)}</p><p><b>Current stage:</b> ${esc(r.stage)}</p><p><b>Priority:</b> ${esc(r.priority)}</p><div class="smart-note">Open Patient Records for complete medical history, diagnosis, treatment and attachments.</div>`;modal.classList.add('open');modal.setAttribute('aria-hidden','false')}
+function applyNew(){
+  document.querySelectorAll('#clinicOrbit .orbit-node.is-new-feature,#ownerOrbit .orbit-node.is-new-feature').forEach(n=>n.classList.remove('is-new-feature'));
+  ['pets-hub','health-hub','appointments-hub','care-hub','grooming-hub','records-hub','payments-hub','account-hub'].forEach(id=>{
+    const n=document.querySelector('#ownerOrbit [data-clinic-module="'+id+'"],#ownerOrbit [data-owner-module="'+id+'"],#ownerOrbit [data-module="'+id+'"]');
+    if(n)n.classList.add('is-new-feature');
+  });
 },true);
 window.PetCareTodayClinic={open};
 const obs=new MutationObserver(()=>applyNew());const root=document.getElementById('clinicNodes');if(root)obs.observe(root,{childList:true,subtree:true});setTimeout(applyNew,100);setTimeout(applyNew,500);

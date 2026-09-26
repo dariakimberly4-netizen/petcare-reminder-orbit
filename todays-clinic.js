@@ -22,7 +22,9 @@ function html(){
  <div class="tc-footer"><button class="smart-action" data-tc-module="appointments">APPOINTMENTS</button><button class="smart-action" data-tc-module="pets">PATIENT RECORDS</button><button class="smart-action" data-tc-module="vaccinations">VACCINES</button><button class="smart-action" data-tc-module="laboratory">LAB & DIAGNOSTICS</button><button class="smart-action" data-tc-module="prescriptions">PRESCRIPTIONS</button><button class="smart-action" data-tc-module="inventory">PHARMACY</button><button class="smart-action" data-tc-module="billing">BILLING</button><button class="smart-action" data-tc-module="reports">REPORTS</button></div>
  </div>`;
 }
-function markActive(mod){document.querySelectorAll('#clinicOrbit .orbit-node').forEach(n=>{n.classList.remove('is-selected','is-active','active');n.removeAttribute('aria-current')})})}\nfunction open(){markActive('dashboard');ws()?.showCustom?.('clinic',html(),'todays-clinic')}
+function markActive(){document.querySelectorAll('#clinicOrbit .orbit-node').forEach(n=>{n.classList.remove('is-selected','is-active','active');n.removeAttribute('aria-current')})}
+function applyNew(){['laboratory','prescriptions','inventory','billing'].forEach(m=>document.querySelector('#clinicOrbit [data-clinic-module="'+m+'"]')?.classList.add('is-new-feature'))}
+function open(){markActive('dashboard');ws()?.showCustom?.('clinic',html(),'todays-clinic')}
 function refresh(){if(ws()?.current?.('clinic')==='todays-clinic')ws()?.refreshCustom?.('clinic',html())}
 function add(){const pet=prompt('Pet name');if(!pet)return;const owner=prompt('Owner name','Walk-in')||'Walk-in';const reason=prompt('Reason / service','Consultation')||'Consultation';rows.push({id:'tc'+Date.now(),pet,owner,reason,stage:'WAITING',priority:/emergency|critical/i.test(reason)?'EMERGENCY':'NORMAL'});save();refresh()}
 document.addEventListener('click',e=>{
@@ -33,5 +35,5 @@ document.addEventListener('click',e=>{
  const o=e.target.closest('[data-tc-open]');if(o){e.preventDefault();const r=rows.find(x=>x.id===o.dataset.tcOpen);if(!r)return;const body=document.getElementById('modalBody'),modal=document.getElementById('modal');body.innerHTML=`<h2>${esc(r.pet)} — Patient Record</h2><p><b>Owner:</b> ${esc(r.owner)}</p><p><b>Visit reason:</b> ${esc(r.reason)}</p><p><b>Current stage:</b> ${esc(r.stage)}</p><p><b>Priority:</b> ${esc(r.priority)}</p><div class="smart-note">Open Patient Records for complete medical history, diagnosis, treatment and attachments.</div>`;modal.classList.add('open');modal.setAttribute('aria-hidden','false')}
 },true);
 window.PetCareTodayClinic={open};
+const obs=new MutationObserver(()=>applyNew());const root=document.getElementById('clinicNodes');if(root)obs.observe(root,{childList:true,subtree:true});setTimeout(applyNew,100);setTimeout(applyNew,500);
 })();
-;setTimeout(()=>{['laboratory','prescriptions','inventory','billing'].forEach(m=>document.querySelector('#clinicOrbit [data-clinic-module="'+m+'"]')?.classList.add('is-new-feature'))},250);

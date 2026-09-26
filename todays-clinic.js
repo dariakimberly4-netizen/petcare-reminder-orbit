@@ -37,3 +37,12 @@ document.addEventListener('click',e=>{
 window.PetCareTodayClinic={open};
 const obs=new MutationObserver(()=>applyNew());const root=document.getElementById('clinicNodes');if(root)obs.observe(root,{childList:true,subtree:true});setTimeout(applyNew,100);setTimeout(applyNew,500);
 })();
+/* v70: preserve logo-first clinic center after all runtime updates */
+function preserveClinicLogoCenter(){
+ const b=document.querySelector('#clinicOrbit .clinic-center'); if(!b)return;
+ b.classList.add('clinic-logo-first');
+ b.innerHTML='<img src="Pet-Family-Animal-Clinic-and-Grooming-Center.png?v=70" alt="Pet Family Animal Clinic and Grooming Center logo"><span class="center-open-label">OPEN TODAY\'S CLINIC</span>';
+}
+const logoCenterObserver=new MutationObserver(()=>{const b=document.querySelector('#clinicOrbit .clinic-center');if(b&&!b.querySelector('.center-open-label'))preserveClinicLogoCenter()});
+logoCenterObserver.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+setTimeout(preserveClinicLogoCenter,50);setTimeout(preserveClinicLogoCenter,300);setTimeout(preserveClinicLogoCenter,1000);

@@ -311,3 +311,67 @@
     current:mode=>navState[mode]?.module||null
   };
 })();
+
+
+/* v89 — Complete Pet Owner finishing workflows */
+(function(){
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const getData=()=>window.petcareGetData?.()||{};
+ const getPet=()=>window.petcareGetSelected?.()||{};
+ const ownerPanel=()=>document.querySelector('#ownerPanel');
+ const featureCard=(title,body)=>'<div class="card owner-v89"><div class="card-head"><div><span class="smart-eyebrow">PET OWNER</span><h2>'+title+'</h2></div></div>'+body+'</div>';
+ function show(title,body){const p=ownerPanel();if(!p)return;p.innerHTML=featureCard(title,body);p.scrollIntoView({behavior:'smooth',block:'start'})}
+ function download(name,text,type='text/plain'){const b=new Blob([text],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),500)}
+ document.addEventListener('click',e=>{
+   const a=e.target.closest('[data-owner-hub-action]'); if(!a)return;
+   const name=a.dataset.ownerHubAction,d=getData(),p=getPet(),o=d.owner||{};
+   if(name==='Owner Profile'){
+     e.preventDefault();e.stopImmediatePropagation();
+     show('Owner Profile','<form data-v89-save="owner"><div class="form-grid"><div class="field full"><label>Profile Photo</label><input type="file" accept="image/*" data-v89-photo><img data-v89-preview style="display:none;max-width:110px;border-radius:50%;margin-top:10px"></div><div class="field"><label>Name</label><input name="name" value="'+esc(o.name)+'"></div><div class="field"><label>Mobile</label><input name="mobile" value="'+esc(o.mobile)+'"></div><div class="field"><label>Email</label><input name="email" value="'+esc(o.email)+'"></div><div class="field"><label>Address</label><input name="address" value="'+esc(o.address)+'"></div><div class="field"><label>Emergency Contact</label><input name="emergency" value="'+esc(o.emergency)+'"></div><div class="field full"><button class="btn btn-primary">SAVE PROFILE</button></div></div></form>');return;
+   }
+   if(name==='Pet Profile'){
+     e.preventDefault();e.stopImmediatePropagation();
+     show('Pet Profile','<form data-v89-save="pet"><div class="form-grid"><div class="field full"><label>Pet Photo</label><input type="file" accept="image/*" data-v89-photo><img data-v89-preview style="display:none;max-width:130px;border-radius:22px;margin-top:10px"></div>'+[['name','Pet Name'],['breed','Breed'],['sex','Sex'],['birthday','Birthday'],['weight','Weight'],['microchip','Microchip'],['allergies','Allergies'],['conditions','Conditions']].map(x=>'<div class="field"><label>'+x[1]+'</label><input name="'+x[0]+'" value="'+esc(p[x[0]])+'"></div>').join('')+'<div class="field full"><button class="btn btn-primary">SAVE PET PROFILE</button></div></div></form>');return;
+   }
+   if(name==='Book Appointment'){
+     e.preventDefault();e.stopImmediatePropagation();
+     show('Book Appointment','<form data-v89-save="appointment"><div class="form-grid"><div class="field"><label>Pet</label><select name="petId">'+(d.pets||[]).map(x=>'<option value="'+x.id+'">'+esc(x.name)+'</option>').join('')+'</select></div><div class="field"><label>Service</label><select name="service"><option>Routine Checkup</option><option>Vaccination</option><option>Dental</option><option>Grooming</option><option>Follow-Up</option></select></div><div class="field"><label>Veterinarian</label><input name="vet" value="'+esc(p.vet)+'"></div><div class="field"><label>Date</label><input type="date" name="date" required></div><div class="field"><label>Time</label><input type="time" name="time" required></div><div class="field full"><button class="btn btn-primary">REVIEW & CONFIRM</button></div></div></form>');return;
+   }
+   if(name==='Create Reminder'||name==='Follow-Up Reminders'){
+     e.preventDefault();e.stopImmediatePropagation();
+     show('Care Reminder','<form data-v89-save="reminder"><div class="form-grid"><div class="field"><label>Pet</label><input value="'+esc(p.name)+'" readonly></div><div class="field"><label>Type</label><select name="type"><option>Vaccination</option><option>Medication</option><option>Deworming</option><option>Grooming</option><option>Follow-Up</option></select></div><div class="field"><label>Title</label><input name="title" required></div><div class="field"><label>Date</label><input type="date" name="date" required></div><div class="field"><label>Repeat</label><select name="repeat"><option>None</option><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Every 3 Months</option><option>Yearly</option></select></div><div class="field full"><button class="btn btn-primary">SAVE REMINDER</button></div></div></form>');return;
+   }
+   if(name==='Current Balance'||name==='Bills'||name==='Payment History'||name==='Receipts'){
+     e.preventDefault();e.stopImmediatePropagation();
+     show('Bills & Payments','<div class="list"><div class="list-item"><div><strong>Consultation</strong><small>Current visit</small></div><strong>₱500.00</strong></div><div class="list-item"><div><strong>Medication</strong><small>Dispensed medicine</small></div><strong>₱350.00</strong></div><div class="list-item"><div><strong>Total</strong><small>Status: PENDING</small></div><strong>₱850.00</strong></div></div><div class="actions" style="margin-top:14px"><button class="btn btn-primary" data-v89-receipt>DOWNLOAD RECEIPT</button></div>');return;
+   }
+   if(['Digital Vaccine Card','Medical Records','Certificates','Prescriptions','Lab Reports'].includes(name)){
+     e.preventDefault();e.stopImmediatePropagation();
+     show(name,'<p>Record ready for '+esc(p.name||'selected pet')+'.</p><div class="actions"><button class="btn btn-primary" data-v89-download="'+esc(name)+'">DOWNLOAD RECORD</button></div>');return;
+   }
+   if(name==='Share Pet Record'){
+     e.preventDefault();e.stopImmediatePropagation();
+     const url=location.origin+location.pathname+'#pet='+encodeURIComponent(p.id||'');
+     show('Share Pet Record','<p>Share this controlled pet-record link with another veterinarian.</p><div class="field"><label>Share Link</label><input value="'+esc(url)+'" readonly></div><div id="v89qr" style="margin:18px 0"></div><button class="btn btn-primary" data-v89-copy="'+esc(url)+'">COPY LINK</button>');
+     setTimeout(()=>{const q=document.querySelector('#v89qr');if(q&&window.QRCode)new QRCode(q,{text:url,width:150,height:150})},50);return;
+   }
+   if(name==='Emergency Pet Card'){
+     e.preventDefault();e.stopImmediatePropagation();
+     show('Emergency Pet Card','<div class="list"><div class="list-item"><div><strong>'+esc(p.name)+'</strong><small>'+esc(p.breed)+' · '+esc(p.sex)+'</small></div></div><div class="list-item"><div><strong>Allergies</strong><small>'+esc(p.allergies||'None recorded')+'</small></div></div><div class="list-item"><div><strong>Conditions</strong><small>'+esc(p.conditions||'None recorded')+'</small></div></div><div class="list-item"><div><strong>Owner</strong><small>'+esc(o.name)+' · '+esc(o.mobile)+'</small></div></div><div class="list-item"><div><strong>Veterinarian</strong><small>'+esc(p.vet||'Not set')+'</small></div></div></div>');return;
+   }
+   if(name==='Notification Preferences'||name==='Security'){
+     e.preventDefault();e.stopImmediatePropagation();
+     show('Settings & Security','<form data-v89-save="settings"><div class="form-grid"><div class="field"><label>Email Notifications</label><select><option>Enabled</option><option>Disabled</option></select></div><div class="field"><label>SMS Notifications</label><select><option>Enabled</option><option>Disabled</option></select></div><div class="field"><label>Reminder Alerts</label><select><option>All</option><option>Important only</option></select></div><div class="field"><label>New Password</label><input type="password" autocomplete="new-password"></div><div class="field full"><button class="btn btn-primary">SAVE SETTINGS</button></div></div></form>');return;
+   }
+ },true);
+ document.addEventListener('change',e=>{if(!e.target.matches('[data-v89-photo]'))return;const f=e.target.files?.[0],img=e.target.parentElement.querySelector('[data-v89-preview]');if(f&&img){img.src=URL.createObjectURL(f);img.style.display='block'}});
+ document.addEventListener('submit',e=>{const f=e.target.closest('[data-v89-save]');if(!f)return;e.preventDefault();e.stopImmediatePropagation();const type=f.dataset.v89Save,fd=new FormData(f),d=getData(),p=getPet();
+   if(type==='owner'){d.owner={...(d.owner||{}),name:fd.get('name'),mobile:fd.get('mobile'),email:fd.get('email'),address:fd.get('address'),emergency:fd.get('emergency')}}
+   if(type==='pet'){['name','breed','sex','birthday','weight','microchip','allergies','conditions'].forEach(k=>p[k]=fd.get(k))}
+   if(type==='appointment'){(d.appointments||(d.appointments=[])).push({id:'a'+Date.now(),petId:fd.get('petId'),type:fd.get('service'),vet:fd.get('vet'),date:fd.get('date'),time:fd.get('time'),status:'REQUESTED'})}
+   if(type==='reminder'){(d.reminders||(d.reminders=[])).push({id:'r'+Date.now(),petId:p.id,type:fd.get('type'),title:fd.get('title'),date:fd.get('date'),repeat:fd.get('repeat'),done:false})}
+   try{localStorage.setItem('petcare-reminder-orbit-v1',JSON.stringify(d))}catch(_){}
+   f.insertAdjacentHTML('afterend','<div class="smart-note">✓ Saved successfully.</div>');return;
+ },true);
+ document.addEventListener('click',e=>{const r=e.target.closest('[data-v89-receipt]');if(r){e.preventDefault();download('petcare-receipt.txt','PETCARE REMINDER\nReceipt\nConsultation ₱500.00\nMedication ₱350.00\nTOTAL ₱850.00\nStatus: PENDING');return}const d=e.target.closest('[data-v89-download]');if(d){e.preventDefault();const p=getPet();download((d.dataset.v89Download+'-'+(p.name||'pet')+'.txt').replace(/ /g,'-'),d.dataset.v89Download+'\nPet: '+(p.name||'')+'\nBreed: '+(p.breed||'')+'\nGenerated from PetCare Reminder.');return}const c=e.target.closest('[data-v89-copy]');if(c){e.preventDefault();navigator.clipboard?.writeText(c.dataset.v89Copy);c.textContent='COPIED';}},true);
+})();

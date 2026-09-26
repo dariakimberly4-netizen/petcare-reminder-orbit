@@ -111,3 +111,36 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
 .orbit-node:not(.is-active):not([aria-current="page"]){
   outline:none !important;
 }
+
+
+/* v47 — remove persistent orbit highlighting completely */
+#clinicOrbit .orbit-node,
+#ownerOrbit .orbit-node{
+  background:#fff !important;
+  color:#0c2d62 !important;
+  border:1px solid #dfe7ef !important;
+  box-shadow:0 8px 22px rgba(18,58,145,.12) !important;
+  outline:none !important;
+}
+#clinicOrbit .orbit-node.active,
+#clinicOrbit .orbit-node.is-active,
+#clinicOrbit .orbit-node[aria-current="page"],
+#ownerOrbit .orbit-node.active,
+#ownerOrbit .orbit-node.is-active,
+#ownerOrbit .orbit-node[aria-current="page"]{
+  background:#fff !important;
+  color:#0c2d62 !important;
+  border:1px solid #dfe7ef !important;
+  box-shadow:0 8px 22px rgba(18,58,145,.12) !important;
+  outline:none !important;
+}
+#clinicOrbit .orbit-node .room-status{
+  color:inherit;
+}
+#clinicOrbit .orbit-node:focus,
+#clinicOrbit .orbit-node:focus-visible,
+#ownerOrbit .orbit-node:focus,
+#ownerOrbit .orbit-node:focus-visible{
+  outline:none !important;
+  box-shadow:0 8px 22px rgba(18,58,145,.12) !important;
+}

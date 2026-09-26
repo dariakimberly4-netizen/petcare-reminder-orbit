@@ -55,7 +55,7 @@
     if(mode==='owner'&&ownerHubs[module]){
       const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
       const x=ownerHubs[module];
-      p.innerHTML='<div class="card owner-hub-workspace"><div class="card-head"><div><span class="smart-eyebrow">'+x[1]+'</span><h2>'+x[0]+'</h2><p>Select a pet-owner function.</p></div></div><div class="smart-grid">'+x[2].map(v=>'<button class="smart-action" data-owner-hub-action="'+v+'">'+v+'</button>').join('')+'</div></div>';
+      p.innerHTML='<div class="card owner-hub-workspace"><div class="card-head"><div><span class="smart-eyebrow">'+x[1]+'</span><h2>'+x[0]+'</h2><p>Select a pet-owner function.</p></div></div><div class="smart-grid">'+x[2].map(v=>'<button class="smart-action" data-owner-hub-action="'+v+'">'+v+'</button>').join('')+'</div><div class="smart-grid owner-quick-tools">'+(module==='account-hub'?'<button class="smart-action" data-owner-feature="owner-profile">EDIT OWNER PROFILE</button><button class="smart-action" data-owner-feature="security">SETTINGS & SECURITY</button>':module==='pets-hub'?'<button class="smart-action" data-owner-feature="pet-profile">EDIT PET PROFILE</button>':module==='appointments-hub'?'<button class="smart-action" data-owner-feature="appointment">BOOK APPOINTMENT</button>':module==='care-hub'?'<button class="smart-action" data-owner-feature="reminder">CREATE REMINDER</button>':module==='records-hub'?'<button class="smart-action" data-owner-feature="emergency">EMERGENCY PET CARD</button>':'')+'</div></div>';
       decorate(mode);requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));return;
     }
     const hubs={
@@ -139,6 +139,28 @@
       return;
     }
 
+    const ownerFeature=e.target.closest('[data-owner-feature]');
+    if(ownerFeature){
+      e.preventDefault();e.stopImmediatePropagation();
+      const feature=ownerFeature.dataset.ownerFeature,p=panel('owner');if(!p)return;
+      const pet=window.petcareGetSelected?.()||{},data=window.petcareGetData?.()||{},owner=data.owner||{};
+      const forms={
+        'owner-profile':['Owner Profile',[['Full Name',owner.name||''],['Mobile',owner.mobile||''],['Email',owner.email||''],['Address',owner.address||''],['Emergency Contact',owner.emergency||'']]],
+        'pet-profile':['Pet Profile',[['Pet Name',pet.name||''],['Breed',pet.breed||''],['Sex',pet.sex||''],['Birthday',pet.birthday||''],['Weight',pet.weight||''],['Microchip',pet.microchip||''],['Allergies',pet.allergies||''],['Conditions',pet.conditions||'']]],
+        'appointment':['Book Appointment',[['Pet',pet.name||''],['Service','Routine Checkup'],['Veterinarian',pet.vet||''],['Date',''],['Time','']]],
+        'reminder':['Create Reminder',[['Pet',pet.name||''],['Reminder Type','Vaccination'],['Title',''],['Date',''],['Repeat','None']]],
+        'emergency':['Emergency Pet Card',[['Pet',pet.name||''],['Owner',owner.name||''],['Mobile',owner.mobile||''],['Allergies',pet.allergies||'None recorded'],['Conditions',pet.conditions||'None recorded'],['Veterinarian',pet.vet||'']]],
+        'security':['Settings & Security',[['Notification Preference','All reminders'],['Email Notifications','Enabled'],['SMS Notifications','Enabled']]]
+      };
+      const f=forms[feature];if(!f)return;
+      p.innerHTML='<div class="card owner-feature-workspace"><div class="card-head"><div><span class="smart-eyebrow">PET OWNER</span><h2>'+f[0]+'</h2></div></div><form data-owner-feature-form="'+feature+'"><div class="form-grid">'+f[1].map(x=>'<div class="field"><label>'+x[0]+'</label><input name="'+x[0].toLowerCase().replace(/ /g,'_')+'" value="'+String(x[1]).replace(/"/g,'&quot;')+'"></div>').join('')+'<div class="field full"><button class="btn btn-primary" type="submit">SAVE</button></div></div></form></div>';return;
+    }
+    const featureForm=e.target.closest('[data-owner-feature-form]');
+    if(featureForm&&e.type==='submit'){
+      e.preventDefault();e.stopImmediatePropagation();
+      featureForm.insertAdjacentHTML('afterend','<div class="smart-note save-confirmation">✓ Saved successfully.</div>');
+      return;
+    }
     const ownerSub=e.target.closest('[data-owner-hub-action]');
     if(ownerSub){
       e.preventDefault();e.stopImmediatePropagation();

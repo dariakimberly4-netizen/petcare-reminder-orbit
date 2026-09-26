@@ -149,7 +149,26 @@
     }
     const ownerAdd=e.target.closest('[data-owner-add]');
     if(ownerAdd){e.preventDefault();e.stopImmediatePropagation();const p=panel('owner'),f=document.createElement('div');f.className='card owner-record-form';f.innerHTML='<h2>'+ownerAdd.dataset.ownerAdd+'</h2><form><div class="form-grid"><div class="field"><label>Title / Record</label><input required></div><div class="field"><label>Date</label><input type="date"></div><div class="field full"><label>Details</label><textarea rows="4"></textarea></div><div class="field full"><button class="btn btn-primary" type="submit">SAVE</button></div></div></form>';p.appendChild(f);f.scrollIntoView({behavior:'smooth'});f.querySelector('form').addEventListener('submit',ev=>{ev.preventDefault();f.innerHTML='<h2>Saved</h2><p class="smart-note">Pet record updated successfully.</p>';});return}
-    if(e.target.closest('[data-owner-view]')){e.preventDefault();alert('Pet record details opened.');return}
+    const ownerView=e.target.closest('[data-owner-view]');
+    if(ownerView){
+      e.preventDefault();e.stopImmediatePropagation();
+      const p=panel('owner');if(!p)return;
+      const card=ownerView.closest('.owner-sub-workspace');
+      const title=card?.querySelector('h2')?.textContent?.trim()||'Owner Profile';
+      const data=window.petcareGetData?.()||{};
+      const pet=window.petcareGetSelected?.()||{};
+      const owner=data.owner||{};
+      const details=document.createElement('div');details.className='card owner-detail-view';
+      details.innerHTML='<div class="card-head"><div><span class="smart-eyebrow">DETAILS</span><h2>'+title+'</h2></div><button class="btn btn-outline" data-owner-detail-close>CLOSE DETAILS</button></div>'+
+        '<div class="smart-grid">'+
+        '<div class="list-item"><div><strong>Owner</strong><small>'+(owner.name||'Not set')+'</small></div></div>'+
+        '<div class="list-item"><div><strong>Mobile</strong><small>'+(owner.mobile||'Not set')+'</small></div></div>'+
+        '<div class="list-item"><div><strong>Emergency Contact</strong><small>'+(owner.emergency||'Not set')+'</small></div></div>'+
+        '<div class="list-item"><div><strong>Selected Pet</strong><small>'+(pet.name||'Not set')+(pet.breed?' · '+pet.breed:'')+'</small></div></div>'+
+        '</div><div class="actions" style="margin-top:14px"><button class="btn btn-primary" data-owner-add="'+title+'">EDIT / UPDATE</button></div>';
+      card?.insertAdjacentElement('afterend',details);details.scrollIntoView({behavior:'smooth'});return;
+    }
+    if(e.target.closest('[data-owner-detail-close]')){e.preventDefault();e.stopImmediatePropagation();e.target.closest('.owner-detail-view')?.remove();return}
 
     const sub=e.target.closest('[data-hub-action]');
     if(sub){

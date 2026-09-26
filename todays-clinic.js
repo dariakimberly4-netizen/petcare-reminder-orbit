@@ -81,3 +81,25 @@ setTimeout(petOwnerNewBadge,250);setTimeout(petOwnerNewBadge,800);setTimeout(pet
  },true);
  setTimeout(apply,250);setTimeout(apply,900);
 })();
+
+/* v90 definitive one-time owner highlight cleanup */
+(function(){
+ const KEY='pet-owner-account-opened';
+ function clear(){
+   document.querySelectorAll('#ownerNodes [data-owner-module="account-hub"]').forEach(acct=>{
+     acct.classList.remove('is-new-feature','owner-new-feature');
+     acct.querySelectorAll('.pet-new-badge,.inline-new-badge').forEach(x=>x.remove());
+     acct.style.removeProperty('border');
+     acct.style.removeProperty('box-shadow');
+   });
+ }
+ if(localStorage.getItem(KEY)==='1') setTimeout(clear,50);
+ document.addEventListener('click',e=>{
+   if(!e.target.closest('#ownerNodes [data-owner-module="account-hub"]'))return;
+   localStorage.setItem(KEY,'1');
+   clear();
+   setTimeout(clear,50);setTimeout(clear,300);setTimeout(clear,1000);
+ },true);
+ const mo=new MutationObserver(()=>{if(localStorage.getItem(KEY)==='1')clear()});
+ mo.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style']});
+})();

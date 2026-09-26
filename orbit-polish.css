@@ -310,3 +310,23 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
 #ownerOrbit .orbit-node.owner-new-feature::after,
 #ownerNodes .pet-new-badge,
 #ownerNodes .inline-new-badge{display:none!important;content:none!important}
+
+/* v92 remove remaining green pseudo-element artifact on owner orbit */
+#ownerOrbit .orbit-node::before,
+#ownerOrbit .orbit-node::after,
+#ownerNodes [data-owner-module="account-hub"]::before,
+#ownerNodes [data-owner-module="account-hub"]::after{
+ content:none!important;
+ display:none!important;
+ background:transparent!important;
+ border:0!important;
+ box-shadow:none!important;
+}
+#ownerNodes [data-owner-module="account-hub"],
+#ownerNodes [data-owner-module="account-hub"]:focus,
+#ownerNodes [data-owner-module="account-hub"]:active{
+ border:1px solid #dfe7ef!important;
+ outline:0!important;
+ box-shadow:0 8px 22px rgba(18,58,145,.12)!important;
+ background:#fff!important;
+}

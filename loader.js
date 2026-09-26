@@ -52,6 +52,9 @@
     setTimeout(()=>{
       try{
         if(typeof window.renderOrbit==='function'){
+          const originalOwnerRender=window.renderOrbit;
+          window.renderOrbit=(mode)=>{originalOwnerRender(mode);if(mode==='owner'){requestAnimationFrame(()=>{const acct=document.querySelector('#ownerNodes [data-owner-module="account-hub"]');if(acct){acct.style.border='4px solid #64d900';acct.style.boxShadow='0 0 0 6px rgba(100,217,0,.30),0 14px 30px rgba(18,58,145,.20)';if(!acct.querySelector('.pet-new-badge')){const b=document.createElement('b');b.className='pet-new-badge';b.textContent='NEW';acct.appendChild(b)}}})}};
+          renderOrbit=window.renderOrbit;
           window.renderOrbit('owner');
           window.renderOrbit('clinic');
         }
@@ -71,7 +74,7 @@
     s.onload=()=>{document.dispatchEvent(new Event('DOMContentLoaded'));loadDoctorPortal()};
     document.head.appendChild(s);
   };
-  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=81',{cache:'no-store'}))
+  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=82',{cache:'no-store'}))
     .then(r=>{if(!r.ok)throw new Error('app.js '+r.status);return r.text()})
     .then(exposeAndRun)
     .catch(err=>{console.error('PetCare full app load failed',err);fallback()});

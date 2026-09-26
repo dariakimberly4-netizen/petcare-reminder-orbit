@@ -1,0 +1,23 @@
+/* Final owner-orbit reset. No green/new/selected/tap decoration on Pet Owner nodes. */
+#ownerOrbit .orbit-node,
+#ownerOrbit .orbit-node:hover,
+#ownerOrbit .orbit-node:focus,
+#ownerOrbit .orbit-node:focus-visible,
+#ownerOrbit .orbit-node:active,
+#ownerOrbit .orbit-node.active,
+#ownerOrbit .orbit-node.is-selected,
+#ownerOrbit .orbit-node.is-new-feature,
+#ownerOrbit .orbit-node.owner-new-feature,
+#ownerOrbit [data-owner-module="account-hub"]{
+ background:#fff!important;
+ color:#0c2d62!important;
+ border:1px solid #dfe7ef!important;
+ outline:0!important;
+ box-shadow:0 8px 22px rgba(18,58,145,.12)!important;
+ -webkit-tap-highlight-color:transparent!important;
+}
+#ownerOrbit .orbit-node::before,#ownerOrbit .orbit-node::after,
+#ownerOrbit [data-owner-module="account-hub"]::before,#ownerOrbit [data-owner-module="account-hub"]::after,
+#ownerOrbit .pet-new-badge,#ownerOrbit .inline-new-badge{
+ content:none!important;display:none!important;background:none!important;border:0!important;box-shadow:none!important;
+}

@@ -175,3 +175,23 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
   background:#64d900;color:#143b08;border-radius:999px;padding:4px 7px;
   font-size:.55rem;font-weight:950;line-height:1;letter-spacing:.04em;
 }
+
+
+/* v66 — proportional clinic orbit for expanded module set */
+#clinicOrbit .orbit-nodes{transform:none!important}
+#clinicOrbit .orbit-node{
+  width:78px!important;height:78px!important;min-height:78px!important;
+  padding:6px 4px!important;font-size:.54rem!important;line-height:1.04!important;
+}
+#clinicOrbit .orbit-node .node-icon{font-size:1.12rem!important;margin-bottom:2px!important}
+#clinicOrbit .orbit-node .node-label{display:block;max-width:70px;overflow-wrap:anywhere;text-align:center}
+@media (max-width:640px){
+  #clinicOrbit{width:100%!important;max-width:620px!important;margin:18px auto 8px!important}
+  #clinicOrbit .orbit-node{
+    width:68px!important;height:68px!important;min-height:68px!important;
+    padding:4px 3px!important;font-size:.46rem!important;line-height:1!important;
+  }
+  #clinicOrbit .orbit-node .node-icon{font-size:.95rem!important}
+  #clinicOrbit .orbit-node .node-label{max-width:61px!important}
+  #clinicOrbit .orbit-center{width:38%!important;height:38%!important}
+}

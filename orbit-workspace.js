@@ -42,6 +42,11 @@
   }
 
   function openWorkspace(mode,module){
+    if(mode==='clinic'&&module==='triage'){
+      const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
+      p.innerHTML='<div class="card"><div class="card-head"><div><span class="smart-eyebrow">EMERGENCY CARE</span><h2>Emergency & Triage</h2><p>Assess urgency, record vital signs and prioritize emergency patients.</p></div><button class="btn btn-primary" data-new-triage>+ NEW TRIAGE</button></div><div class="grid two"><div class="stat-card"><strong>1</strong><small>Critical</small></div><div class="stat-card"><strong>2</strong><small>Urgent</small></div><div class="stat-card"><strong>3</strong><small>Waiting</small></div><div class="stat-card"><strong>1</strong><small>Vet Assigned</small></div></div><div class="smart-grid"><button class="smart-action">TRIAGE QUEUE</button><button class="smart-action">VITAL SIGNS</button><button class="smart-action">PRIORITY LEVEL</button><button class="smart-action">ASSIGN VET</button><button class="smart-action">EMERGENCY NOTES</button><button class="smart-action">TRANSFER TO CONSULTATION</button></div></div>';
+      decorate(mode);requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));return;
+    }
     if(mode==='clinic'&&module==='confinement'){
       const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
       p.innerHTML='<div class="card"><div class="card-head"><div><span class="smart-eyebrow">INPATIENT CARE</span><h2>Admission & Confinement</h2><p>Manage admitted pets from check-in through discharge.</p></div><button class="btn btn-primary" data-new-admission>+ NEW ADMISSION</button></div><div class="grid two"><div class="stat-card"><strong>3</strong><small>Currently Admitted</small></div><div class="stat-card"><strong>7</strong><small>Kennels Available</small></div><div class="stat-card"><strong>1</strong><small>For Discharge</small></div><div class="stat-card"><strong>1</strong><small>Critical</small></div></div><div class="smart-grid"><button class="smart-action">ADMISSION RECORD</button><button class="smart-action">KENNEL / ROOM</button><button class="smart-action">DAILY TREATMENT</button><button class="smart-action">MEDICATION SCHEDULE</button><button class="smart-action">FEEDING & FLUIDS</button><button class="smart-action">VITALS MONITORING</button><button class="smart-action">VET NOTES</button><button class="smart-action">DISCHARGE & FOLLOW-UP</button></div></div>';
@@ -88,6 +93,18 @@
       e.preventDefault();e.stopImmediatePropagation();
       const mode=close.closest('#clinicApp')?'clinic':'owner';
       closeWorkspace(mode);
+      return;
+    }
+
+    const triage=e.target.closest('[data-new-triage]');
+    if(triage){
+      e.preventDefault();e.stopImmediatePropagation();
+      const p=panel('clinic');if(!p)return;
+      const old=p.querySelector('.triage-form');if(old){old.scrollIntoView({behavior:'smooth'});return}
+      const form=document.createElement('div');form.className='card triage-form';
+      form.innerHTML='<h2>New Emergency Triage</h2><form data-triage-form><div class="form-grid"><div class="field"><label>Pet Name</label><input name="pet" required></div><div class="field"><label>Owner Name</label><input name="owner" required></div><div class="field"><label>Chief Complaint</label><input name="complaint" required></div><div class="field"><label>Priority</label><select name="priority" required><option>CRITICAL</option><option>URGENT</option><option>STABLE</option></select></div><div class="field"><label>Temperature</label><input name="temp"></div><div class="field"><label>Heart Rate</label><input name="hr"></div><div class="field"><label>Respiratory Rate</label><input name="rr"></div><div class="field"><label>Assigned Vet</label><input name="vet"></div><div class="field full"><label>Emergency Notes</label><textarea name="notes" rows="3"></textarea></div><div class="field full"><button class="btn btn-primary" type="submit">SAVE & ADD TO TRIAGE QUEUE</button></div></div></form>';
+      p.appendChild(form);form.scrollIntoView({behavior:'smooth'});
+      form.querySelector('form').addEventListener('submit',ev=>{ev.preventDefault();form.innerHTML='<h2>Triage Saved</h2><p class="smart-note">Patient added to the emergency triage queue.</p>';});
       return;
     }
 

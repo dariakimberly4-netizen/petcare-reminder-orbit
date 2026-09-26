@@ -42,6 +42,11 @@
   }
 
   function openWorkspace(mode,module){
+    if(mode==='clinic'&&module==='confinement'){
+      const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
+      p.innerHTML='<div class="card"><div class="card-head"><div><span class="smart-eyebrow">INPATIENT CARE</span><h2>Admission & Confinement</h2><p>Manage admitted pets from check-in through discharge.</p></div><button class="btn btn-primary">+ NEW ADMISSION</button></div><div class="grid two"><div class="stat-card"><strong>3</strong><small>Currently Admitted</small></div><div class="stat-card"><strong>7</strong><small>Kennels Available</small></div><div class="stat-card"><strong>1</strong><small>For Discharge</small></div><div class="stat-card"><strong>1</strong><small>Critical</small></div></div><div class="smart-grid"><button class="smart-action">ADMISSION RECORD</button><button class="smart-action">KENNEL / ROOM</button><button class="smart-action">DAILY TREATMENT</button><button class="smart-action">MEDICATION SCHEDULE</button><button class="smart-action">FEEDING & FLUIDS</button><button class="smart-action">VITALS MONITORING</button><button class="smart-action">VET NOTES</button><button class="smart-action">DISCHARGE & FOLLOW-UP</button></div></div>';
+      decorate(mode);requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));return;
+    }
     const render=mode==='owner'?(window.petcareRenderOwner||window.renderOwner):(window.petcareRenderClinic||window.renderClinic);
     if(typeof render!=='function')return;
     const s=beginWorkspace(mode,module);if(!s)return;

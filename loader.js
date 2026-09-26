@@ -72,7 +72,7 @@
     s.onload=()=>{document.dispatchEvent(new Event('DOMContentLoaded'));loadDoctorPortal()};
     document.head.appendChild(s);
   };
-  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=84',{cache:'no-store'}))
+  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=93',{cache:'no-store'}))
     .then(r=>{if(!r.ok)throw new Error('app.js '+r.status);return r.text()})
     .then(exposeAndRun)
     .catch(err=>{console.error('PetCare full app load failed',err);fallback()});

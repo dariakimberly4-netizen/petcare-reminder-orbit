@@ -42,3 +42,14 @@ function preserveClinicLogoCenter(){
 const logoCenterObserver=new MutationObserver(()=>{const b=document.querySelector('#clinicOrbit .clinic-center');if(b&&!b.querySelector('.center-open-label'))preserveClinicLogoCenter()});
 logoCenterObserver.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
 setTimeout(preserveClinicLogoCenter,50);setTimeout(preserveClinicLogoCenter,300);setTimeout(preserveClinicLogoCenter,1000);
+
+/* v83 safe Pet Owner NEW highlight without wrapping renderOrbit */
+function petOwnerNewBadge(){
+ const acct=document.querySelector('#ownerNodes [data-owner-module="account-hub"]');
+ if(!acct)return;
+ acct.classList.add('is-new-feature');
+ if(!acct.querySelector('.pet-new-badge')){
+   const b=document.createElement('b');b.className='pet-new-badge';b.textContent='NEW';acct.appendChild(b);
+ }
+}
+setTimeout(petOwnerNewBadge,250);setTimeout(petOwnerNewBadge,800);setTimeout(petOwnerNewBadge,1600);

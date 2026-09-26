@@ -144,3 +144,14 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
   outline:none !important;
   box-shadow:0 8px 22px rgba(18,58,145,.12) !important;
 }
+
+
+/* v54 — visible selected-module highlight */
+#clinicOrbit .orbit-node.is-selected{
+  background:#123a91 !important;
+  color:#fff !important;
+  border:3px solid #64d900 !important;
+  box-shadow:0 0 0 5px rgba(100,217,0,.25),0 16px 34px rgba(18,58,145,.34) !important;
+  z-index:12 !important;
+}
+#clinicOrbit .orbit-node.is-selected .node-icon{filter:none!important}

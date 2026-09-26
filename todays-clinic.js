@@ -42,15 +42,19 @@ setTimeout(preserveClinicLogoCenter,50);setTimeout(preserveClinicLogoCenter,300)
 
 
 
-/* v97 highlight only the newly added My Account feature */
+
+/* v98 requested NEW highlights */
 (function(){
+ const ids=['pets-hub','appointments-hub','care-hub'];
  function mark(){
-   const n=document.querySelector('#ownerOrbit [data-owner-module="account-hub"]');
-   if(n)n.classList.add('new-highlight');
+   ids.forEach(id=>{
+     const n=document.querySelector('#ownerOrbit [data-owner-module="'+id+'"]');
+     if(n)n.classList.add('new-highlight');
+   });
  }
  setTimeout(mark,250);setTimeout(mark,900);
  document.addEventListener('click',e=>{
-   const n=e.target.closest('#ownerOrbit [data-owner-module="account-hub"].new-highlight');
+   const n=e.target.closest('#ownerOrbit .orbit-node.new-highlight');
    if(n)n.classList.remove('new-highlight');
  },true);
 })();

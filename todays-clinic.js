@@ -41,3 +41,16 @@ setTimeout(preserveClinicLogoCenter,50);setTimeout(preserveClinicLogoCenter,300)
 
 
 
+
+/* v97 highlight only the newly added My Account feature */
+(function(){
+ function mark(){
+   const n=document.querySelector('#ownerOrbit [data-owner-module="account-hub"]');
+   if(n)n.classList.add('new-highlight');
+ }
+ setTimeout(mark,250);setTimeout(mark,900);
+ document.addEventListener('click',e=>{
+   const n=e.target.closest('#ownerOrbit [data-owner-module="account-hub"].new-highlight');
+   if(n)n.classList.remove('new-highlight');
+ },true);
+})();

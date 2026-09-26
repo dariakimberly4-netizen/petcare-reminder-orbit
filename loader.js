@@ -19,13 +19,14 @@
     }
     /* v68: enforce the current 8-menu clinic hub even if an old app.js is cached upstream */
     fixed=fixed.replace(/const clinicMods=\[[^\n]+;/,"const clinicMods=[['patients-hub','PATIENTS','🐾'],['queue-hub','APPOINTMENTS & QUEUE','📅'],['clinical-hub','CLINICAL CARE','🩺'],['preventive-hub','PREVENTIVE CARE','💉'],['diagnostics-hub','DIAGNOSTICS','🔬'],['pharmacy-hub','PHARMACY & INVENTORY','💊'],['billing-hub','BILLING & CASHIER','💰'],['management-hub','CLINIC MANAGEMENT','⚙️']];");
+    fixed=fixed.replace(/const ownerMods=\[[^\n]+;/,"const ownerMods=[['pets-hub','MY PETS','🐾'],['health-hub','HEALTH','❤️'],['appointments-hub','APPOINTMENTS','📅'],['care-hub','CARE & REMINDERS','🔔'],['grooming-hub','GROOMING & SERVICES','✂️'],['records-hub','RECORDS & DOCUMENTS','📄'],['payments-hub','BILLS & PAYMENTS','💰'],['account-hub','MY ACCOUNT','👤']];");
     fixed=fixed.replace("const KEY='petcare-reminder-orbit-v1';","const KEY=(window.PetCareSupabase?.active?'petcare-reminder-orbit-secure':'petcare-reminder-orbit-v1');");
     fixed=fixed.replace("let data;try{data=JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){data=seed()}let selected='p1'","let data;try{data=(window.PetCareSupabase?.active&&window.PetCareSupabase.initialData)||JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){data=seed()}let selected=(data.pets&&data.pets[0]?data.pets[0].id:'p1')");
     fixed=fixed.replace("save=()=>localStorage.setItem(KEY,JSON.stringify(data))","save=()=>{localStorage.setItem(KEY,JSON.stringify(data));if(window.PetCareSupabase?.active)window.PetCareSupabase.syncLegacy(data)}");
     ["'p'+Date.now()","'v'+Date.now()","'m'+Date.now()","'g'+Date.now()","'a'+Date.now()","'d'+Date.now()"].forEach(x=>{fixed=fixed.split(x).join("(window.PetCareSupabase?.newId?.()||crypto.randomUUID())")});
     fixed=fixed.replace("text:location.href+'#pet='+p.id","text:(window.PetCareSupabase?.cardUrl?.(p)||location.href+'#pet='+p.id)");
     const wrapped=fixed+`\n;try{
-      window.enter=enter;window.renderOrbit=(mode)=>{renderOrbit(mode);if(mode==='owner')document.querySelectorAll('#ownerOrbit .orbit-node').forEach(n=>n.classList.add('owner-new-feature'))};renderOrbit=window.renderOrbit;window.renderOwner=renderOwner;window.renderClinic=renderClinic;window.center=center;
+      window.enter=enter;window.renderOrbit=(mode)=>{renderOrbit(mode);if(mode==='owner'){const nodes=[...document.querySelectorAll('#ownerOrbit .orbit-node')];nodes.forEach(n=>n.classList.remove('owner-new-feature','is-new-feature'));const acct=document.querySelector('#ownerOrbit [data-owner-module="account-hub"]');if(acct){acct.classList.add('is-new-feature');if(!acct.querySelector('.inline-new-badge'))acct.insertAdjacentHTML('beforeend','<span class="inline-new-badge">NEW</span>')}}};renderOrbit=window.renderOrbit;window.renderOwner=renderOwner;window.renderClinic=renderClinic;window.center=center;
       window.petcareGetData=()=>data;window.petcareGetSelected=()=>pet();window.petcareRenderOwner=renderOwner;window.petcareRenderClinic=renderClinic;
       window.petcareSelectPet=id=>{selected=id;center();renderOrbit('owner');renderOwner('home')};
       window.petcareRefreshActive=()=>{
@@ -70,7 +71,7 @@
     s.onload=()=>{document.dispatchEvent(new Event('DOMContentLoaded'));loadDoctorPortal()};
     document.head.appendChild(s);
   };
-  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=80',{cache:'no-store'}))
+  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=81',{cache:'no-store'}))
     .then(r=>{if(!r.ok)throw new Error('app.js '+r.status);return r.text()})
     .then(exposeAndRun)
     .catch(err=>{console.error('PetCare full app load failed',err);fallback()});

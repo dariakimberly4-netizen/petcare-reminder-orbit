@@ -92,3 +92,22 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
   }
   .orbit-node .node-icon{font-size:1.05rem}
 }
+
+
+/* v46 — selected orbit highlight: exactly one active module */
+.orbit-node.is-active,
+.orbit-node[aria-current="page"]{
+  background:#123a91 !important;
+  color:#fff !important;
+  border-color:#123a91 !important;
+  box-shadow:0 0 0 4px rgba(18,58,145,.16),0 14px 30px rgba(18,58,145,.28) !important;
+}
+.orbit-node.is-active .room-status,
+.orbit-node[aria-current="page"] .room-status{
+  background:rgba(255,255,255,.18) !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,.32) !important;
+}
+.orbit-node:not(.is-active):not([aria-current="page"]){
+  outline:none !important;
+}

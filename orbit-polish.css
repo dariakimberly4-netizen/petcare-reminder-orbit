@@ -237,3 +237,8 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
    max-height:66%!important;
  }
 }
+
+/* v72 — larger clean proportional center logo */
+#clinicOrbit .clinic-logo-first{gap:10px!important}
+#clinicOrbit .clinic-logo-first img{max-width:88%!important;max-height:76%!important;width:auto!important;height:auto!important}
+#clinicOrbit .clinic-logo-first .center-open-label{display:block!important}

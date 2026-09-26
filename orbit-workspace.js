@@ -42,6 +42,22 @@
   }
 
   function openWorkspace(mode,module){
+    const hubs={
+      'patients-hub':['Patients','PATIENT CARE',['Pet Registration','Owner Profile','Pet Profile','Medical History','Allergies & Alerts','Search Patient']],
+      'queue-hub':['Appointments & Queue','FRONT DESK',['Appointments','Walk-In Registration','Check-In','Waiting Queue',"Today's Schedule",'Completed Visits']],
+      'clinical-hub':['Clinical Care','MEDICAL CARE',['Consultation','Emergency & Triage','Admission & Confinement','Vital Signs','Diagnosis & Treatment','Vet Notes','Discharge & Follow-Up']],
+      'preventive-hub':['Preventive Care','WELLNESS',['Vaccines','Deworming','Due & Overdue','Vaccine Schedule','Reminder Center','Follow-Up']],
+      'diagnostics-hub':['Diagnostics','LAB & IMAGING',['Laboratory','Lab Requests','Lab Results','X-Ray / Ultrasound','Upload Results']],
+      'pharmacy-hub':['Pharmacy & Inventory','MEDICINES & STOCK',['Prescriptions','Dispensing','Medicine Stock','Low Stock','Expiry Monitoring','Suppliers','Purchasing']],
+      'billing-hub':['Billing & Cashier','PAYMENTS',['Current Charges','Payments','Receipts','Balances','Discounts','Cash Reconciliation','End-of-Day Closing']],
+      'management-hub':['Clinic Management','ADMINISTRATION',['Reports','Documents & Certificates','Staff & Vets','Roles & Permissions','Audit Trail']]
+    };
+    if(mode==='clinic'&&hubs[module]){
+      const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
+      const x=hubs[module];
+      p.innerHTML='<div class="card clinic-hub-workspace"><div class="card-head"><div><span class="smart-eyebrow">'+x[1]+'</span><h2>'+x[0]+'</h2><p>Select a clinic function.</p></div></div><div class="smart-grid">'+x[2].map(v=>'<button class="smart-action" data-hub-action="'+v+'">'+v+'</button>').join('')+'</div></div>';
+      decorate(mode);requestAnimationFrame(()=>window.scrollTo({top:s.offsetTop||0,behavior:'auto'}));return;
+    }
     if(mode==='clinic'&&['discharge','documents-clinic','staff','audit'].includes(module)){
       const p=panel(mode),s=beginWorkspace(mode,module);if(!p||!s)return;
       const cfg={

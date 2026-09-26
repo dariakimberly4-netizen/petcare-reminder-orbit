@@ -53,3 +53,31 @@ function petOwnerNewBadge(){
  }
 }
 setTimeout(petOwnerNewBadge,250);setTimeout(petOwnerNewBadge,800);setTimeout(petOwnerNewBadge,1600);
+
+/* v88 one-time Pet Owner highlight */
+(function(){
+ const KEY='pet-owner-account-highlight-seen-v88';
+ function apply(){
+  const acct=document.querySelector('#ownerNodes [data-owner-module="account-hub"]');
+  if(!acct)return;
+  if(localStorage.getItem(KEY)==='1'){
+   acct.classList.remove('is-new-feature');
+   acct.querySelector('.pet-new-badge,.inline-new-badge')?.remove();
+   acct.style.border='';acct.style.boxShadow='';
+  }else{
+   acct.classList.add('is-new-feature');
+   if(!acct.querySelector('.pet-new-badge')){
+    const b=document.createElement('b');b.className='pet-new-badge';b.textContent='NEW';acct.appendChild(b);
+   }
+  }
+ }
+ document.addEventListener('click',e=>{
+  const acct=e.target.closest('#ownerNodes [data-owner-module="account-hub"]');
+  if(!acct)return;
+  localStorage.setItem(KEY,'1');
+  acct.classList.remove('is-new-feature');
+  acct.querySelector('.pet-new-badge,.inline-new-badge')?.remove();
+  acct.style.border='';acct.style.boxShadow='';
+ },true);
+ setTimeout(apply,250);setTimeout(apply,900);
+})();

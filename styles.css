@@ -13,3 +13,16 @@ button,input,select,textarea{font:inherit} button{cursor:pointer}.screen{display
 @media (max-width:640px){.owner-main,.clinic-main{padding:10px}.orbit-section{padding:10px}.orbit-wrap{width:100%;max-width:540px}.orbit-node{width:82px;min-height:60px;font-size:.62rem;border-radius:17px}.orbit-node .node-icon{font-size:1.2rem}.center-orb{width:44%;border-width:6px}.grid.two,.grid.three,.form-grid{grid-template-columns:1fr}.list-item{align-items:flex-start;flex-direction:column}.actions{width:100%}.actions .btn{flex:1}.brand-mini small{display:none}}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 body.reduced-motion *{transition:none!important;animation:none!important}
+
+/* v95 owner orbit interaction states must remain neutral */
+#ownerOrbit .orbit-node.active,
+#ownerOrbit .orbit-node:active,
+#ownerOrbit .orbit-node:focus,
+#ownerOrbit .orbit-node:focus-visible,
+#ownerOrbit .orbit-node:hover{
+ background:#fff!important;
+ border:1px solid #dfe7ef!important;
+ outline:none!important;
+ box-shadow:0 8px 22px rgba(18,58,145,.12)!important;
+}
+#ownerOrbit .orbit-node{ -webkit-tap-highlight-color:transparent!important; }

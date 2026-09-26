@@ -214,3 +214,26 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
  #clinicOrbit .clinic-logo-first img{width:76%!important;max-width:125px!important}
  #clinicOrbit .clinic-logo-first .center-open-label{font-size:.52rem!important}
 }
+
+
+/* v71 — preserve clinic logo's natural proportions */
+#clinicOrbit .clinic-logo-first img{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:78%!important;
+  max-height:68%!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0 auto!important;
+  flex:0 1 auto!important;
+}
+@media(max-width:640px){
+ #clinicOrbit .clinic-logo-first img{
+   width:auto!important;
+   height:auto!important;
+   max-width:80%!important;
+   max-height:66%!important;
+ }
+}

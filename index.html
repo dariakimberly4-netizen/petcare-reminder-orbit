@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="clinic-building.css?v=40" />
   <link rel="stylesheet" href="doctor-access.css?v=42" />
   <link rel="stylesheet" href="doctor-advanced.css?v=43" />
-  <link rel="stylesheet" href="doctor-orbit.css?v=107" />
+  <link rel="stylesheet" href="doctor-orbit.css?v=108" />
   <link rel="stylesheet" href="todays-clinic.css?v=45" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
@@ -33,9 +33,35 @@
   <script src="clinic-prescriptions.js?v=38" defer></script>
   <script src="doctor-access.js?v=42" defer></script>
   <script src="doctor-advanced.js?v=43" defer></script>
-  <script src="doctor-orbit.js?v=104" defer></script>
+  <script src="doctor-orbit.js?v=108" defer></script>
   <script src="todays-clinic.js?v=103" defer></script>
-<link rel="stylesheet" href="owner-reset.css?v=103"></head>
+<link rel="stylesheet" href="owner-reset.css?v=103"><style id="doctor-circular-final">
+#doctorOrbitZone .doctor-orbit-wrap{position:relative!important;width:min(560px,96vw)!important;height:min(560px,96vw)!important;margin:0 auto!important}
+#doctorOrbitZone .doctor-orbit-center{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:140px!important;height:140px!important;border-radius:50%!important;z-index:5!important}
+#doctorOrbitZone button.doctor-orbit-node{display:flex!important;position:absolute!important;left:50%!important;top:50%!important;width:100px!important;height:100px!important;min-height:100px!important;border-radius:9999px!important;aspect-ratio:1/1!important;padding:8px!important;transform:translate(-50%,-50%)!important;visibility:visible!important;opacity:1!important;z-index:6!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="0"]{transform:translate(-50%,-50%) translate(0,-190px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="1"]{transform:translate(-50%,-50%) translate(134px,-134px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="2"]{transform:translate(-50%,-50%) translate(190px,0)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="3"]{transform:translate(-50%,-50%) translate(134px,134px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="4"]{transform:translate(-50%,-50%) translate(0,190px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="5"]{transform:translate(-50%,-50%) translate(-134px,134px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="6"]{transform:translate(-50%,-50%) translate(-190px,0)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="7"]{transform:translate(-50%,-50%) translate(-134px,-134px)!important}
+@media(max-width:430px){
+#doctorOrbitZone .doctor-orbit-wrap{width:96vw!important;height:96vw!important}
+#doctorOrbitZone .doctor-orbit-center{width:122px!important;height:122px!important}
+#doctorOrbitZone button.doctor-orbit-node{width:80px!important;height:80px!important;min-height:80px!important;font-size:8.5px!important}
+#doctorOrbitZone button.doctor-orbit-node small{display:none!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="0"]{transform:translate(-50%,-50%) translate(0,-150px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="1"]{transform:translate(-50%,-50%) translate(106px,-106px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="2"]{transform:translate(-50%,-50%) translate(150px,0)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="3"]{transform:translate(-50%,-50%) translate(106px,106px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="4"]{transform:translate(-50%,-50%) translate(0,150px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="5"]{transform:translate(-50%,-50%) translate(-106px,106px)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="6"]{transform:translate(-50%,-50%) translate(-150px,0)!important}
+#doctorOrbitZone button.doctor-orbit-node[data-i="7"]{transform:translate(-50%,-50%) translate(-106px,-106px)!important}
+}
+</style></head>
 <body><div id="app">
 <section id="welcome" class="screen welcome-screen active" aria-label="Welcome"><div class="welcome-card"><img src="Pet-Family-Animal-Clinic-and-Grooming-Center.png?v=23" alt="Pet Family Animal Clinic and Grooming Center logo" class="brand-logo hero-logo" /><p class="eyebrow">PETCARE REMINDER</p><h1>Never Miss Their Care.</h1><p class="lead">Pet health, reminders, grooming, vaccinations and clinic care — organized around a simple Orbit.</p><div class="welcome-actions"><button class="btn btn-primary btn-xl" data-enter="owner">ENTER PET OWNER DEMO</button><button class="btn btn-secondary btn-xl" data-enter="clinic">ENTER CLINIC DEMO</button></div><div class="demo-pill">DEMO</div></div></section>
 <section id="ownerApp" class="screen app-shell" aria-label="Pet owner app"><header class="topbar"><div class="brand-mini"><img src="Pet-Family-Animal-Clinic-and-Grooming-Center.png?v=23" alt="Clinic logo" class="mini-logo" /><div><strong>PetCare Reminder</strong><small>Never Miss Their Care.</small></div></div><div class="top-actions"><button class="icon-btn" data-action="search" aria-label="Search">⌕</button><button class="icon-btn" data-action="notifications" aria-label="Notifications">🔔</button><button class="icon-btn" data-action="settings" aria-label="Settings">⚙</button></div></header><main class="owner-main"><section class="orbit-section"><div class="orbit-toolbar"><button class="pet-selector" data-action="switch-pet"><span id="selectedPetName">Peanut</span> ▾</button><button class="text-btn" data-action="home-summary">TODAY</button></div><div id="ownerOrbit" class="orbit-wrap" tabindex="0" aria-label="Pet owner orbit navigation"><div class="orbit-ring ring-a"></div><div class="orbit-ring ring-b"></div><button class="center-orb" data-action="center-status"><div class="pet-avatar" id="petAvatar">🐶</div><small id="centerKicker">NEXT CARE DUE</small><strong id="centerTitle">Rabies Vaccine</strong><span id="centerMeta">Peanut · Due Sep 28</span><em>OPEN SMART HUB</em></button><div id="ownerNodes" class="orbit-nodes"></div></div><div class="orbit-help">Swipe or drag to rotate · Tap a node to open</div></section><section id="ownerPanel" class="panel-area" aria-live="polite" aria-hidden="true"></section></main><nav class="bottom-nav" aria-label="Quick navigation"><button data-module="home">HOME</button><button data-module="pets">MY PETS</button><button data-module="reminders">REMINDERS</button><button data-module="vaccine">VACCINE CARD</button><button data-module="more">MORE</button></nav></section>

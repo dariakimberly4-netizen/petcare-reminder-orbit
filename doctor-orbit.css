@@ -27,3 +27,28 @@
  #doctorOrbitZone .doctor-orbit-node{--radius:42%!important;width:88px!important;min-height:58px!important;font-size:.57rem!important}
  #doctorOrbitZone .doctor-orbit-center{width:128px!important;height:128px!important}
 }
+
+/* v106 REAL mobile orbit positions — explicit coordinates, no percentage-radius bug */
+@media(max-width:760px){
+ #doctorOrbitZone .doctor-orbit-wrap{width:min(560px,96vw)!important;height:min(560px,96vw)!important;min-height:0!important}
+ #doctorOrbitZone .doctor-orbit-node{left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="0"]{transform:translate(-50%,-50%) translate(0,-190px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="1"]{transform:translate(-50%,-50%) translate(135px,-135px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="2"]{transform:translate(-50%,-50%) translate(190px,0)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="3"]{transform:translate(-50%,-50%) translate(135px,135px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="4"]{transform:translate(-50%,-50%) translate(0,190px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="5"]{transform:translate(-50%,-50%) translate(-135px,135px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="6"]{transform:translate(-50%,-50%) translate(-190px,0)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="7"]{transform:translate(-50%,-50%) translate(-135px,-135px)!important}
+}
+@media(max-width:430px){
+ #doctorOrbitZone .doctor-orbit-wrap{width:96vw!important;height:96vw!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="0"]{transform:translate(-50%,-50%) translate(0,-150px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="1"]{transform:translate(-50%,-50%) translate(106px,-106px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="2"]{transform:translate(-50%,-50%) translate(150px,0)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="3"]{transform:translate(-50%,-50%) translate(106px,106px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="4"]{transform:translate(-50%,-50%) translate(0,150px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="5"]{transform:translate(-50%,-50%) translate(-106px,106px)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="6"]{transform:translate(-50%,-50%) translate(-150px,0)!important}
+ #doctorOrbitZone .doctor-orbit-node[data-i="7"]{transform:translate(-50%,-50%) translate(-106px,-106px)!important}
+}

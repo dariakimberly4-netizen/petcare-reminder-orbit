@@ -16,11 +16,7 @@
  box-shadow:0 8px 22px rgba(18,58,145,.12)!important;
  -webkit-tap-highlight-color:transparent!important;
 }
-#ownerOrbit .orbit-node::before,#ownerOrbit .orbit-node::after,
-#ownerOrbit [data-owner-module="account-hub"]::before,#ownerOrbit [data-owner-module="account-hub"]::after,
-#ownerOrbit .pet-new-badge,#ownerOrbit .inline-new-badge{
- content:none!important;display:none!important;background:none!important;border:0!important;box-shadow:none!important;
-}
+#ownerOrbit .pet-new-badge,#ownerOrbit .inline-new-badge{display:none!important}
 
 
 /* v98 NEW highlight — requested Pet Owner modules only */
@@ -34,4 +30,15 @@
  top:-9px!important;right:-8px!important;background:#64d900!important;color:#143b08!important;
  border:2px solid #fff!important;border-radius:999px!important;padding:4px 7px!important;
  font-size:9px!important;font-weight:950!important;line-height:1!important;z-index:999!important;
+}
+
+/* v101 exact NEW badge winner */
+#ownerOrbit button.orbit-node.new-highlight::after{
+ content:"NEW"!important;display:block!important;visibility:visible!important;
+ position:absolute!important;top:-10px!important;right:-8px!important;
+ width:auto!important;height:auto!important;
+ background:#64d900!important;color:#143b08!important;
+ border:2px solid #fff!important;border-radius:999px!important;
+ padding:5px 8px!important;font:900 9px/1 Arial,sans-serif!important;
+ z-index:99999!important;
 }

@@ -25,10 +25,8 @@ function html(){
 function markActive(){document.querySelectorAll('#clinicOrbit .orbit-node').forEach(n=>{n.classList.remove('is-selected','is-active','active');n.removeAttribute('aria-current')})}
 function applyNew(){
   document.querySelectorAll('#clinicOrbit .orbit-node.is-new-feature,#ownerOrbit .orbit-node.is-new-feature').forEach(n=>n.classList.remove('is-new-feature'));
-  ['pets-hub','health-hub','appointments-hub','care-hub','grooming-hub','records-hub','payments-hub','account-hub'].forEach(id=>{
-    const n=document.querySelector('#ownerOrbit [data-clinic-module="'+id+'"],#ownerOrbit [data-owner-module="'+id+'"],#ownerOrbit [data-module="'+id+'"]');
-    if(n)n.classList.add('is-new-feature');
-  });
+  const seen=localStorage.getItem('petOwnerV76Seen')==='1';
+  if(!seen) document.querySelectorAll('#ownerOrbit .orbit-node').forEach(n=>n.classList.add('is-new-feature'));
 },true);
 window.PetCareTodayClinic={open};
 const obs=new MutationObserver(()=>applyNew());const root=document.getElementById('clinicNodes');if(root)obs.observe(root,{childList:true,subtree:true});setTimeout(applyNew,100);setTimeout(applyNew,500);

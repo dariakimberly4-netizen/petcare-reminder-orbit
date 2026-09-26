@@ -330,3 +330,11 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
  box-shadow:0 8px 22px rgba(18,58,145,.12)!important;
  background:#fff!important;
 }
+
+/* v93 hard reset owner account node */
+#ownerOrbit button[data-owner-module="account-hub"]{
+ border:1px solid #dfe7ef!important;background:#fff!important;
+ box-shadow:0 8px 22px rgba(18,58,145,.12)!important;
+ outline:none!important;overflow:hidden!important;
+}
+#ownerOrbit button[data-owner-module="account-hub"]>*:not(.node-icon){background:transparent!important}

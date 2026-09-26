@@ -242,3 +242,15 @@ body.reduced-motion .orbit-nodes{transform:scale(1.055)!important;}
 #clinicOrbit .clinic-logo-first{gap:10px!important}
 #clinicOrbit .clinic-logo-first img{max-width:88%!important;max-height:76%!important;width:auto!important;height:auto!important}
 #clinicOrbit .clinic-logo-first .center-open-label{display:block!important}
+
+/* v76 — Pet Owner NEW feature highlight: visible, precise, one-time */
+#ownerOrbit .orbit-node.is-new-feature{
+  border:3px solid #64d900 !important;
+  box-shadow:0 0 0 5px rgba(100,217,0,.20),0 14px 30px rgba(18,58,145,.20) !important;
+  position:absolute;
+}
+#ownerOrbit .orbit-node.is-new-feature::after{
+  content:"NEW";position:absolute;top:-8px;right:-8px;
+  background:#64d900;color:#123a2a;border:2px solid #fff;border-radius:999px;
+  padding:3px 6px;font-size:.42rem;font-weight:1000;line-height:1;z-index:5;
+}

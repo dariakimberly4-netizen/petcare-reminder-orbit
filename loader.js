@@ -17,6 +17,8 @@
       const rm=fixed.indexOf(marker,rs);
       if(rm>rs) fixed=fixed.slice(0,rs)+"function renderOrbit(mode){"+fixed.slice(rm);
     }
+    /* v68: enforce the current 8-menu clinic hub even if an old app.js is cached upstream */
+    fixed=fixed.replace(/const clinicMods=\[[^\n]+;/,"const clinicMods=[['patients-hub','PATIENTS','🐾'],['queue-hub','APPOINTMENTS & QUEUE','📅'],['clinical-hub','CLINICAL CARE','🩺'],['preventive-hub','PREVENTIVE CARE','💉'],['diagnostics-hub','DIAGNOSTICS','🔬'],['pharmacy-hub','PHARMACY & INVENTORY','💊'],['billing-hub','BILLING & CASHIER','💰'],['management-hub','CLINIC MANAGEMENT','⚙️']];");
     fixed=fixed.replace("const KEY='petcare-reminder-orbit-v1';","const KEY=(window.PetCareSupabase?.active?'petcare-reminder-orbit-secure':'petcare-reminder-orbit-v1');");
     fixed=fixed.replace("let data;try{data=JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){data=seed()}let selected='p1'","let data;try{data=(window.PetCareSupabase?.active&&window.PetCareSupabase.initialData)||JSON.parse(localStorage.getItem(KEY))||seed()}catch(e){data=seed()}let selected=(data.pets&&data.pets[0]?data.pets[0].id:'p1')");
     fixed=fixed.replace("save=()=>localStorage.setItem(KEY,JSON.stringify(data))","save=()=>{localStorage.setItem(KEY,JSON.stringify(data));if(window.PetCareSupabase?.active)window.PetCareSupabase.syncLegacy(data)}");
@@ -68,7 +70,7 @@
     s.onload=()=>{document.dispatchEvent(new Event('DOMContentLoaded'));loadDoctorPortal()};
     document.head.appendChild(s);
   };
-  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=67',{cache:'no-store'}))
+  Promise.resolve(api?.ready).catch(()=>true).then(()=>fetch('app.js?v=68',{cache:'no-store'}))
     .then(r=>{if(!r.ok)throw new Error('app.js '+r.status);return r.text()})
     .then(exposeAndRun)
     .catch(err=>{console.error('PetCare full app load failed',err);fallback()});

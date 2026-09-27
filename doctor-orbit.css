@@ -66,3 +66,38 @@
  #doctorOrbitZone .doctor-orbit-node{width:82px!important;height:82px!important;min-height:82px!important;border-radius:50%!important;font-size:.54rem!important}
  #doctorOrbitZone .doctor-orbit-node span{font-size:.95rem!important}
 }
+
+
+/* v109 expanded doctor clinical workflow */
+.doc-kpi-grid button{padding:14px;border:1px solid #dce7f5;border-radius:16px;text-align:center;background:#fff;color:inherit;cursor:pointer;font:inherit}
+.doc-kpi-grid button:hover,.doc-kpi-grid button:focus{border-color:#82aee6;box-shadow:0 8px 18px rgba(12,79,163,.08)}
+.doc-kpi-grid button b{display:block;font-size:1.5rem}
+.doc-kpi-grid button small{font-weight:800}
+.doc-alert-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0}
+.doc-alert-grid .doc-alert{display:flex;flex-direction:column;gap:4px;margin:0;background:#eef6ff}
+.doc-alert-grid .warning{background:#fff4e5}
+.doc-alert-grid .danger{background:#fff0f0}
+.doc-alert-grid .doc-alert strong{font-size:.68rem;letter-spacing:.05em}
+.doc-alert-grid .doc-alert span{font-size:.82rem}
+.doc-quick-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.doc-quick-tools button{border:1px solid #dce7f5;background:#f8fbff;color:#174a83;border-radius:13px;padding:12px;font-weight:900;cursor:pointer}
+.doc-list{display:grid;gap:9px;margin:12px 0 16px}
+.doc-list-row{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid #dce7f5;border-radius:14px;background:#fff}
+.doc-list-row>div{display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}
+.doc-list-row span{font-size:.78rem;color:#667890}
+.doc-list-row button{border:0;border-radius:999px;background:#0c4fa3;color:#fff;padding:8px 11px;font-size:.72rem;font-weight:900;cursor:pointer}
+.doc-list-row button:disabled,.doc-list-row.is-done button{background:#d9e5f1;color:#47637e}
+.doc-list-row.is-done{opacity:.72}
+.doc-status{font-weight:900!important;color:#1a6b4a!important}
+.doc-section-title{font-size:.78rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-top:12px;color:#36597c}
+.doc-form-separated{margin-top:18px;padding-top:18px;border-top:1px solid #dce7f5}
+.doc-span-2{grid-column:1/-1}
+.doc-timeline{position:relative;display:grid;gap:0;margin:12px 0 18px;padding-left:8px}
+.doc-timeline:before{content:"";position:absolute;left:118px;top:8px;bottom:8px;width:2px;background:#d8e6f5}
+.doc-timeline-item{display:grid;grid-template-columns:100px 1fr;gap:30px;position:relative;padding:10px 0}
+.doc-timeline-item:before{content:"";position:absolute;left:106px;top:18px;width:10px;height:10px;border-radius:50%;background:#0c4fa3;border:3px solid #fff;box-shadow:0 0 0 1px #9bbce2}
+.doc-timeline-item time{font-size:.72rem;font-weight:800;color:#667890;text-align:right}
+.doc-timeline-item div{display:flex;flex-direction:column;gap:3px}
+.doc-timeline-item div span{font-size:.8rem;color:#667890}
+@media(max-width:720px){.doc-alert-grid{grid-template-columns:1fr 1fr}.doc-quick-tools{grid-template-columns:1fr}.doc-list-row{align-items:flex-start;flex-wrap:wrap}}
+@media(max-width:460px){.doc-alert-grid{grid-template-columns:1fr}.doc-timeline:before{left:12px}.doc-timeline-item{grid-template-columns:1fr;padding-left:30px}.doc-timeline-item:before{left:7px}.doc-timeline-item time{text-align:left}}
